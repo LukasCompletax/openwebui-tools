@@ -25,6 +25,7 @@ Aufruf:
 from __future__ import annotations
 
 import argparse
+import re
 import datetime as dt
 import json
 import pathlib
@@ -104,6 +105,53 @@ def ask(base_url: str, model: str, messages: list[dict], tools: list[dict], temp
     return calls, seconds, message
 
 
+def first_args(message: dict) -> dict:
+    tool_calls = message.get("tool_calls") or []
+    if not tool_calls:
+        return {}
+    args = tool_calls[0].get("function", {}).get("arguments") or {}
+    if isinstance(args, str):
+        try:
+            args = json.loads(args)
+        except json.JSONDecodeError:
+            args = {"_raw": args}
+    return args
+
+
+def _as_text(value) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, (dict, list)):
+        return json.dumps(value, ensure_ascii=False)
+    return str(value)
+
+
+def check_args(expected_args: dict | None, args: dict | None) -> list[str]:
+    """Vergleicht übergebene Parameter mit Erwartungen. Gibt Abweichungen zurück, leer = alles ok.
+
+    Matcher: {"in": [...]} exakt aus Liste, {"contains": "x"} Teilstring, {"contains_all": [...]},
+    {"regex": "..."}; alles ohne Groß/Klein.
+    """
+    if not expected_args:
+        return []
+    args = args or {}
+    problems: list[str] = []
+    for name, matcher in expected_args.items():
+        got = _as_text(args.get(name)).strip().lower()
+        if "in" in matcher:
+            if got not in [str(v).lower() for v in matcher["in"]]:
+                problems.append(f"{name}={got!r} nicht in {matcher['in']}")
+        if "contains" in matcher and matcher["contains"].lower() not in got:
+            problems.append(f"{name}={got[:40]!r} enthält nicht {matcher['contains']!r}")
+        if "contains_all" in matcher:
+            missing = [w for w in matcher["contains_all"] if w.lower() not in got]
+            if missing:
+                problems.append(f"{name} fehlt {missing}")
+        if "regex" in matcher and not re.search(matcher["regex"], got, re.IGNORECASE | re.DOTALL):
+            problems.append(f"{name} passt nicht auf /{matcher['regex']}/")
+    return problems
+
+
 def classify(expected: str | None, calls: list[str]) -> str:
     first = calls[0] if calls else None
     if expected is None and first is None:
@@ -158,10 +206,15 @@ def main(argv: list[str]) -> int:
             except Exception as exc:  # Netz oder Modell
                 calls, error = [], type(exc).__name__
             verdict = "fehler" if error else classify(case["expected"], calls)
+            call_args = first_args(message) if not error else {}
+            arg_problems = check_args(case.get("expected_args"), call_args) if verdict == "ok" and case["expected"] else []
+            arg_verdict = "" if not case.get("expected_args") else ("ok" if verdict == "ok" and not arg_problems else "abweichung")
             rows.append({"id": case["id"], "run": run, "expected": case["expected"], "got": calls[0] if calls else None,
-                         "steps": steps, "verdict": verdict, "seconds": round(seconds_total, 1), "error": error})
+                         "steps": steps, "verdict": verdict, "args": call_args, "arg_verdict": arg_verdict, "arg_problems": arg_problems,
+                         "seconds": round(seconds_total, 1), "error": error})
             mark = {"ok": "✓", "tool_falsch": "✗", "tool_fehlt": "–", "tool_unnoetig": "+", "fehler": "!"}[verdict]
-            print(f"  {mark} {case['id']} run{run}: erwartet={case['expected']} schritte={' → '.join(steps) or '-'} ({seconds_total:.1f}s)")
+            extra = f"  parameter: {'ok' if not arg_problems else '; '.join(arg_problems)}" if case.get("expected_args") and verdict == "ok" else ""
+            print(f"  {mark} {case['id']} run{run}: erwartet={case['expected']} schritte={' → '.join(steps) or '-'} ({seconds_total:.1f}s){extra}")
 
     total = len(rows)
     counts = {k: sum(1 for r in rows if r["verdict"] == k) for k in ("ok", "tool_falsch", "tool_fehlt", "tool_unnoetig", "fehler")}
@@ -171,12 +224,15 @@ def main(argv: list[str]) -> int:
         per_case.setdefault(r["id"], []).append(r["verdict"])
     unstable = sorted(cid for cid, vs in per_case.items() if len(set(vs)) > 1)
     avg_seconds = sum(r["seconds"] for r in rows) / total if total else 0.0
+    arg_rows = [r for r in rows if r["arg_verdict"]]
+    arg_ok = sum(1 for r in arg_rows if r["arg_verdict"] == "ok")
 
     stamp = dt.datetime.now().strftime("%Y-%m-%d_%H%M")
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / f"{stamp}_{args.model.replace(':', '_')}.json").write_text(
         json.dumps({"model": args.model, "temperature": args.temperature, "runs": args.runs, "tools": [t["function"]["name"] for t in tools],
-                    "summary": {**counts, "accuracy": round(accuracy, 3), "avg_seconds": round(avg_seconds, 1), "unstable_cases": unstable},
+                    "summary": {**counts, "accuracy": round(accuracy, 3), "avg_seconds": round(avg_seconds, 1), "unstable_cases": unstable,
+                                "args_checked": len(arg_rows), "args_ok": arg_ok},
                     "rows": rows}, ensure_ascii=False, indent=2), encoding="utf-8")
 
     lines = [f"# Tool-Wahl: {args.model}", "",
@@ -187,15 +243,17 @@ def main(argv: list[str]) -> int:
              f"| Tool fehlt | {counts['tool_fehlt']} |",
              f"| Tool unnötig | {counts['tool_unnoetig']} |",
              f"| Fehler | {counts['fehler']} |",
-             f"| Ø Antwortzeit | {avg_seconds:.1f} s |", ""]
+             f"| Ø Antwortzeit | {avg_seconds:.1f} s |",
+             f"| Parameter korrekt | {arg_ok} von {len(arg_rows)} geprüften Aufrufen |", ""]
     if unstable:
         lines += [f"Instabil über die Läufe: {', '.join(unstable)}", ""]
-    lines += ["| Fall | erwartet | bekommen | Urteil |", "|---|---|---|---|"]
+    lines += ["| Fall | erwartet | bekommen | Urteil | Parameter |", "|---|---|---|---|---|"]
     for r in rows:
-        lines.append(f"| {r['id']} (Lauf {r['run']}) | {r['expected'] or '–'} | {' → '.join(r['steps']) or '–'} | {r['verdict']} |")
+        params = "–" if not r["arg_verdict"] else ("ok" if r["arg_verdict"] == "ok" else "; ".join(r["arg_problems"]) or "nicht geprüft")
+        lines.append(f"| {r['id']} (Lauf {r['run']}) | {r['expected'] or '–'} | {' → '.join(r['steps']) or '–'} | {r['verdict']} | {params} |")
     report = args.out / f"{stamp}_{args.model.replace(':', '_')}.md"
     report.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"\nrichtig: {counts['ok']}/{total} ({accuracy:.0%})  falsch: {counts['tool_falsch']}  fehlt: {counts['tool_fehlt']}  unnötig: {counts['tool_unnoetig']}  Ø {avg_seconds:.1f}s")
+    print(f"\nrichtig: {counts['ok']}/{total} ({accuracy:.0%})  falsch: {counts['tool_falsch']}  fehlt: {counts['tool_fehlt']}  unnötig: {counts['tool_unnoetig']}  Ø {avg_seconds:.1f}s  parameter: {arg_ok}/{len(arg_rows)}")
     print(f"Bericht: {report}")
     return 0
 

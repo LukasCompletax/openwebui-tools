@@ -1,46 +1,331 @@
 [
-  {"id": "t01", "expected": "translate_document", "attachment": "vertrag.pdf", "attachment_text": "Mietvertrag zwischen der Musterfirma Beispiel GmbH und der Beispiel Immobilien KG über Büroräume in der Musterstraße 1. Die monatliche Miete beträgt 2.500,00 Euro …",
-   "prompt": "Übersetze dieses Dokument nach Englisch als PDF."},
-  {"id": "t02", "expected": "translate_document", "attachment": "bilanz_2025.docx", "attachment_text": "Bilanz zum 31.12.2025 der Musterfirma Beispiel GmbH. Aktiva: Anlagevermögen 120.000,00 Euro, Umlaufvermögen 45.000,00 Euro …",
-   "prompt": "Ich brauche die angehängte Bilanz auf Französisch, bitte als Word-Datei."},
-  {"id": "t03", "expected": "translate_document", "attachment": "schreiben_finanzamt.pdf", "attachment_text": "Sehr geehrte Damen und Herren, hiermit beantragen wir für unsere Mandantin die Verlängerung der Abgabefrist …",
-   "prompt": "Kannst du mir das ins Englische übertragen? Ergebnis gern wieder als PDF."},
-  {"id": "c01", "expected": "create_document", "attachment": null, "attachment_text": null,
-   "prompt": "Schreib mir ein Anschreiben an das Finanzamt wegen Fristverlängerung für die Musterfirma Beispiel GmbH als Word-Datei."},
-  {"id": "c02", "expected": "create_document", "attachment": null, "attachment_text": null,
-   "prompt": "Mach aus dieser Liste eine Excel-Tabelle: Honorar 1.200 €, Auslagen 80 €, Fahrtkosten 45 €."},
-  {"id": "c03", "expected": "create_document", "attachment": null, "attachment_text": null,
-   "prompt": "Erstelle eine Checkliste für die Jahresabschluss-Unterlagen eines Einzelunternehmers und gib sie mir als PDF."},
-  {"id": "c04", "expected": "create_document", "attachment": null, "attachment_text": null,
-   "prompt": "Fasse die Regeln zur Aufbewahrungsfrist von Belegen in einem kurzen Merkblatt zusammen, ich will es als Datei herunterladen."},
-  {"id": "s01", "expected": "describe_spreadsheet", "attachment": "buchungen_q1.xlsx", "attachment_text": "Datum;Konto;Buchungstext;Betrag\n2026-01-05;4400;Erlöse Beratung;1200,50\n2026-01-09;4400;Erlöse Beratung;800,00\n2026-01-12;6300;Büromaterial;-45,90 …",
-   "prompt": "Was steht in dieser Tabelle?"},
-  {"id": "s02", "expected": "aggregate_spreadsheet", "accepted_first": ["describe_spreadsheet"], "attachment": "buchungen_q1.xlsx", "attachment_text": "Datum;Konto;Buchungstext;Betrag\n2026-01-05;4400;Erlöse Beratung;1200,50\n2026-01-09;4400;Erlöse Beratung;800,00\n2026-01-12;6300;Büromaterial;-45,90 …",
-   "prompt": "Wie hoch ist die Summe je Konto?"},
-  {"id": "s03", "expected": "aggregate_spreadsheet", "accepted_first": ["describe_spreadsheet"], "attachment": "umsaetze.csv", "attachment_text": "Datum;Konto;Buchungstext;Betrag\n2026-01-05;4400;Erlöse Beratung;1200,50\n2026-02-03;4400;Erlöse Schulung;1000,00\n2026-02-10;6800;Porto;12,30 …",
-   "prompt": "Wie viele Buchungen enthalten das Wort Erlöse?"},
-  {"id": "s04", "expected": "aggregate_spreadsheet", "accepted_first": ["describe_spreadsheet"], "attachment": "umsaetze.csv", "attachment_text": "Datum;Konto;Buchungstext;Betrag\n2026-01-05;4400;Erlöse Beratung;1200,50\n2026-02-03;4400;Erlöse Schulung;1000,00\n2026-02-10;6800;Porto;12,30 …",
-   "prompt": "Durchschnittlicher Betrag auf Konto 4400?"},
-  {"id": "n01", "expected": "list_workflows", "attachment": null, "attachment_text": null,
-   "prompt": "Welche n8n-Workflows gibt es?"},
-  {"id": "n02", "expected": "run_workflow", "accepted_first": ["list_workflows"], "attachment": null, "attachment_text": null,
-   "prompt": "Starte den Workflow echo mit mandant M-100."},
-  {"id": "n03", "expected": "list_workflows", "attachment": null, "attachment_text": null,
-   "prompt": "Welche Automatisierungen stehen in n8n bereit?"},
-  {"id": "o01", "expected": "ocr_document", "attachment": "bescheid_scan.pdf", "attachment_text": "",
-   "prompt": "Was steht in diesem Scan?"},
-  {"id": "o02", "expected": "ocr_document", "attachment": "beleg.jpg", "attachment_text": "",
-   "prompt": "Mach dieses Foto eines Belegs durchsuchbar."},
-  {"id": "o03", "expected": "ocr_document", "attachment": "altakte.pdf", "attachment_text": "",
-   "prompt": "Das PDF hat keine Textebene, bitte OCR drüberlaufen lassen."},
-  {"id": "x01", "expected": null, "attachment": null, "attachment_text": null,
-   "prompt": "Was ist der Unterschied zwischen Einnahmen-Überschuss-Rechnung und Bilanzierung?"},
-  {"id": "x02", "expected": null, "attachment": null, "attachment_text": null,
-   "prompt": "Formuliere den folgenden Satz höflicher: Schicken Sie die Unterlagen sofort."},
-  {"id": "x03", "expected": null, "attachment": null, "attachment_text": null,
-   "prompt": "Bis wann muss die Umsatzsteuer-Voranmeldung für März abgegeben werden?"},
-  {"id": "x04", "expected": null, "attachment": "vertrag.pdf", "attachment_text": "Mietvertrag zwischen der Musterfirma Beispiel GmbH und der Beispiel Immobilien KG über Büroräume in der Musterstraße 1. Die monatliche Miete beträgt 2.500,00 Euro, die Laufzeit fünf Jahre, Kündigungsfrist sechs Monate.",
-   "prompt": "Fasse das angehängte Dokument in drei Sätzen zusammen."},
-  {"id": "x05", "expected": null, "attachment": "bescheid.pdf", "attachment_text": "Bescheid über Umsatzsteuer 2025 für die Musterfirma Beispiel GmbH. Festgesetzt: 4.321,00 Euro. Fällig am 15.11.2026.",
-   "prompt": "Welcher Betrag wird in dem Bescheid festgesetzt und wann ist er fällig?"}
+  {
+    "id": "t01",
+    "expected": "translate_document",
+    "attachment": "vertrag.pdf",
+    "attachment_text": "Mietvertrag zwischen der Musterfirma Beispiel GmbH und der Beispiel Immobilien KG über Büroräume in der Musterstraße 1. Die monatliche Miete beträgt 2.500,00 Euro …",
+    "prompt": "Übersetze dieses Dokument nach Englisch als PDF.",
+    "expected_args": {
+      "target_language": {
+        "in": [
+          "englisch",
+          "english",
+          "en",
+          "en-gb",
+          "en-us"
+        ]
+      },
+      "output_format": {
+        "in": [
+          "pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "t02",
+    "expected": "translate_document",
+    "attachment": "bilanz_2025.docx",
+    "attachment_text": "Bilanz zum 31.12.2025 der Musterfirma Beispiel GmbH. Aktiva: Anlagevermögen 120.000,00 Euro, Umlaufvermögen 45.000,00 Euro …",
+    "prompt": "Ich brauche die angehängte Bilanz auf Französisch, bitte als Word-Datei.",
+    "expected_args": {
+      "target_language": {
+        "in": [
+          "französisch",
+          "franzoesisch",
+          "french",
+          "fr",
+          "français"
+        ]
+      },
+      "output_format": {
+        "in": [
+          "docx",
+          "word"
+        ]
+      }
+    }
+  },
+  {
+    "id": "t03",
+    "expected": "translate_document",
+    "attachment": "schreiben_finanzamt.pdf",
+    "attachment_text": "Sehr geehrte Damen und Herren, hiermit beantragen wir für unsere Mandantin die Verlängerung der Abgabefrist …",
+    "prompt": "Kannst du mir das ins Englische übertragen? Ergebnis gern wieder als PDF.",
+    "expected_args": {
+      "target_language": {
+        "in": [
+          "englisch",
+          "english",
+          "en"
+        ]
+      },
+      "output_format": {
+        "in": [
+          "pdf",
+          ""
+        ]
+      }
+    }
+  },
+  {
+    "id": "c01",
+    "expected": "create_document",
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Schreib mir ein Anschreiben an das Finanzamt wegen Fristverlängerung für die Musterfirma Beispiel GmbH als Word-Datei.",
+    "expected_args": {
+      "output_format": {
+        "in": [
+          "docx",
+          "word"
+        ]
+      },
+      "content": {
+        "contains_all": [
+          "finanzamt",
+          "frist"
+        ]
+      }
+    }
+  },
+  {
+    "id": "c02",
+    "expected": "create_document",
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Mach aus dieser Liste eine Excel-Tabelle: Honorar 1.200 €, Auslagen 80 €, Fahrtkosten 45 €.",
+    "expected_args": {
+      "output_format": {
+        "in": [
+          "xlsx",
+          "excel"
+        ]
+      },
+      "content": {
+        "regex": "\\|.*\\|"
+      }
+    }
+  },
+  {
+    "id": "c03",
+    "expected": "create_document",
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Erstelle eine Checkliste für die Jahresabschluss-Unterlagen eines Einzelunternehmers und gib sie mir als PDF.",
+    "expected_args": {
+      "output_format": {
+        "in": [
+          "pdf"
+        ]
+      },
+      "content": {
+        "contains_all": [
+          "jahresabschluss"
+        ]
+      }
+    }
+  },
+  {
+    "id": "c04",
+    "expected": "create_document",
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Fasse die Regeln zur Aufbewahrungsfrist von Belegen in einem kurzen Merkblatt zusammen, ich will es als Datei herunterladen.",
+    "expected_args": {
+      "output_format": {
+        "in": [
+          "docx",
+          "pdf",
+          "md",
+          "word",
+          ""
+        ]
+      },
+      "content": {
+        "contains_all": [
+          "aufbewahrung"
+        ]
+      }
+    }
+  },
+  {
+    "id": "s01",
+    "expected": "describe_spreadsheet",
+    "attachment": "buchungen_q1.xlsx",
+    "attachment_text": "Datum;Konto;Buchungstext;Betrag\n2026-01-05;4400;Erlöse Beratung;1200,50\n2026-01-09;4400;Erlöse Beratung;800,00\n2026-01-12;6300;Büromaterial;-45,90 …",
+    "prompt": "Was steht in dieser Tabelle?"
+  },
+  {
+    "id": "s02",
+    "expected": "aggregate_spreadsheet",
+    "accepted_first": [
+      "describe_spreadsheet"
+    ],
+    "attachment": "buchungen_q1.xlsx",
+    "attachment_text": "Datum;Konto;Buchungstext;Betrag\n2026-01-05;4400;Erlöse Beratung;1200,50\n2026-01-09;4400;Erlöse Beratung;800,00\n2026-01-12;6300;Büromaterial;-45,90 …",
+    "prompt": "Wie hoch ist die Summe je Konto?",
+    "expected_args": {
+      "operation": {
+        "in": [
+          "sum"
+        ]
+      },
+      "value_column": {
+        "contains": "betrag"
+      },
+      "group_by": {
+        "contains": "konto"
+      }
+    }
+  },
+  {
+    "id": "s03",
+    "expected": "aggregate_spreadsheet",
+    "accepted_first": [
+      "describe_spreadsheet"
+    ],
+    "attachment": "umsaetze.csv",
+    "attachment_text": "Datum;Konto;Buchungstext;Betrag\n2026-01-05;4400;Erlöse Beratung;1200,50\n2026-02-03;4400;Erlöse Schulung;1000,00\n2026-02-10;6800;Porto;12,30 …",
+    "prompt": "Wie viele Buchungen enthalten das Wort Erlöse?",
+    "expected_args": {
+      "operation": {
+        "in": [
+          "count"
+        ]
+      },
+      "filter_column": {
+        "contains": "buchungstext"
+      },
+      "filter_value": {
+        "contains": "erlöse"
+      }
+    }
+  },
+  {
+    "id": "s04",
+    "expected": "aggregate_spreadsheet",
+    "accepted_first": [
+      "describe_spreadsheet"
+    ],
+    "attachment": "umsaetze.csv",
+    "attachment_text": "Datum;Konto;Buchungstext;Betrag\n2026-01-05;4400;Erlöse Beratung;1200,50\n2026-02-03;4400;Erlöse Schulung;1000,00\n2026-02-10;6800;Porto;12,30 …",
+    "prompt": "Durchschnittlicher Betrag auf Konto 4400?",
+    "expected_args": {
+      "operation": {
+        "in": [
+          "avg"
+        ]
+      },
+      "value_column": {
+        "contains": "betrag"
+      },
+      "filter_column": {
+        "contains": "konto"
+      },
+      "filter_value": {
+        "contains": "4400"
+      }
+    }
+  },
+  {
+    "id": "n01",
+    "expected": "list_workflows",
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Welche n8n-Workflows gibt es?"
+  },
+  {
+    "id": "n02",
+    "expected": "run_workflow",
+    "accepted_first": [
+      "list_workflows"
+    ],
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Starte den Workflow echo mit mandant M-100.",
+    "expected_args": {
+      "workflow": {
+        "in": [
+          "echo"
+        ]
+      },
+      "parameters_json": {
+        "contains": "m-100"
+      }
+    }
+  },
+  {
+    "id": "n03",
+    "expected": "list_workflows",
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Welche Automatisierungen stehen in n8n bereit?"
+  },
+  {
+    "id": "o01",
+    "expected": "ocr_document",
+    "attachment": "bescheid_scan.pdf",
+    "attachment_text": "",
+    "prompt": "Was steht in diesem Scan?"
+  },
+  {
+    "id": "o02",
+    "expected": "ocr_document",
+    "attachment": "beleg.jpg",
+    "attachment_text": "",
+    "prompt": "Mach dieses Foto eines Belegs durchsuchbar.",
+    "expected_args": {
+      "force": {
+        "in": [
+          "",
+          "false",
+          "0",
+          "none"
+        ]
+      }
+    }
+  },
+  {
+    "id": "o03",
+    "expected": "ocr_document",
+    "attachment": "altakte.pdf",
+    "attachment_text": "",
+    "prompt": "Das PDF hat keine Textebene, bitte OCR drüberlaufen lassen."
+  },
+  {
+    "id": "x01",
+    "expected": null,
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Was ist der Unterschied zwischen Einnahmen-Überschuss-Rechnung und Bilanzierung?"
+  },
+  {
+    "id": "x02",
+    "expected": null,
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Formuliere den folgenden Satz höflicher: Schicken Sie die Unterlagen sofort."
+  },
+  {
+    "id": "x03",
+    "expected": null,
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Bis wann muss die Umsatzsteuer-Voranmeldung für März abgegeben werden?"
+  },
+  {
+    "id": "x04",
+    "expected": null,
+    "attachment": "vertrag.pdf",
+    "attachment_text": "Mietvertrag zwischen der Musterfirma Beispiel GmbH und der Beispiel Immobilien KG über Büroräume in der Musterstraße 1. Die monatliche Miete beträgt 2.500,00 Euro, die Laufzeit fünf Jahre, Kündigungsfrist sechs Monate.",
+    "prompt": "Fasse das angehängte Dokument in drei Sätzen zusammen."
+  },
+  {
+    "id": "x05",
+    "expected": null,
+    "attachment": "bescheid.pdf",
+    "attachment_text": "Bescheid über Umsatzsteuer 2025 für die Musterfirma Beispiel GmbH. Festgesetzt: 4.321,00 Euro. Fällig am 15.11.2026.",
+    "prompt": "Welcher Betrag wird in dem Bescheid festgesetzt und wann ist er fällig?"
+  }
 ]

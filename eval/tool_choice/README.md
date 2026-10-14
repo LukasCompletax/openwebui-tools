@@ -17,6 +17,9 @@ ob Skills als Prompt-Bausteine mit diesem Modell tragen oder ein größeres Mode
 - Zweistufig: Fälle, bei denen die Tool-Beschreibung einen Vorbereitungs-Aufruf verlangt
   (`describe_spreadsheet` vor `aggregate_spreadsheet`, `list_workflows` vor `run_workflow`),
   bekommen ein vorgefertigtes Ergebnis zurück; gewertet wird der zweite Aufruf.
+- Parameter: 12 Fälle tragen `expected_args` mit Matchern (`in`, `contains`, `contains_all`,
+  `regex`, alle ohne Groß/Klein). Geprüft werden Zielsprache und Format, Spaltennamen,
+  Operation und Filterwerte, Workflow-Name und Parameter-JSON sowie das Fehlen von `force`.
 
 ```bash
 python3 eval/tool_choice/run_eval.py --runs 1 --temperature 0
@@ -28,14 +31,16 @@ Berichte landen unter `results/` als Markdown und JSON.
 
 ## Ergebnis vom 14.10.2026, qwen3.8:27b-mlx, 7 Werkzeuge
 
-| Lauf | richtig | falsches Tool | Tool fehlt | Tool unnötig | Ø Antwortzeit |
-|---|---|---|---|---|---|
-| Temperatur 0, 1 Lauf je Fall | 22 von 22 | 0 | 0 | 0 | 4,4 s |
-| Temperatur 0,7, 3 Läufe je Fall | 65 von 66 | 0 | 1 | 0 | 4,3 s |
+| Lauf | Tool richtig | falsches Tool | Tool fehlt | Tool unnötig | Parameter korrekt | Ø Antwortzeit |
+|---|---|---|---|---|---|---|
+| Temperatur 0, 1 Lauf je Fall | 22 von 22 | 0 | 0 | 0 | 12 von 12 | 5,3 s |
+| Temperatur 0,7, 3 Läufe je Fall | 65 von 66 | 0 | 1 | 0 | 36 von 36 | 4,5 s |
 
-Der einzige Ausreißer: Beim Anschreiben an das Finanzamt (c01, dritter Lauf) hat das Modell
-den Brief direkt in den Chat geschrieben statt das Datei-Tool zu rufen. Inhaltlich richtig,
-nur ohne Download. In den anderen fünf Läufen desselben Falls kam das Tool.
+Ausreißer über alle Läufe des Tages: je einmal hat das Modell statt eines Tool-Aufrufs direkt
+geantwortet (einmal das Anschreiben in den Chat geschrieben, einmal die Frage nach den
+n8n-Workflows ohne Liste beantwortet). Nie wurde ein falsches Tool gewählt, nie ein Tool
+unnötig gerufen. Alle geprüften Parameter waren korrekt: Zielsprachen, Formate, Spalten,
+Operationen, Filterwerte, Workflow-Name, Parameter-JSON.
 
 Die fünf Fälle ohne Tool wurden in allen Läufen ohne Werkzeug beantwortet, auch die beiden
 mit angehängtem Dokument. Das Modell ruft also nicht reflexhaft OCR oder Übersetzung, wenn
@@ -57,8 +62,8 @@ Was dieser Prüflauf nicht abbildet:
 - Die Reihenfolge und Menge an Kontext, die Open WebUI tatsächlich einfügt (Systemprompt,
   RAG-Auszüge mit mehreren Quellen, Chatverlauf). Lange Verläufe mit vielen Werkzeugaufrufen
   sind die bekannte Schwäche kleiner Modelle und sollten gesondert geprüft werden.
-- Die Qualität der Parameter. Gewertet wird nur, welches Tool gerufen wird, nicht ob
-  Zielsprache, Spaltenname oder Dateiname korrekt übergeben werden.
+- Parameter werden nur bei 12 Fällen und nur auf die genannten Felder geprüft. Der Inhalt
+  erzeugter Dokumente wird nicht bewertet, nur dass Pflichtbegriffe darin vorkommen.
 - Tool-Ergebnisse sind vorgefertigt. Ob das Modell mit echten, längeren Ergebnissen weiter
   richtig entscheidet, zeigt nur der Chat.
 
