@@ -130,6 +130,43 @@ Zum Ausprobieren liegt `read_table/samples/beispiel_buchungen.xlsx` bereit, Inha
 - Gruppierung nach mehreren Spalten gleichzeitig gibt es nicht; dafür zweimal filtern.
 - Zellinhalte gehen an das lokale Modell. Für Mandantendaten gilt weiterhin: kein Cloud-Modell wählen.
 
+## Betriebseinstellungen in Open WebUI
+
+Stand 14.10.2026, gesetzt über den Admin-Bereich, hier festgehalten, damit sie bei
+einer Neuinstallation reproduzierbar sind.
+
+| Einstellung | Wert | Grund |
+|---|---|---|
+| Standardmodell | qwen3.8:27b-mlx | vorher kein Standard, Open WebUI nahm das alphabetisch erste Modell, das war das Cloud-Modell |
+| Arena-Modell | aus | hätte zufällig das Cloud-Modell wählen können |
+| Embedding | Engine Ollama, Modell `bge-m3`, URL `http://host.docker.internal:11434` | mehrsprachig; das Standardmodell all-MiniLM ist englischlastig und schwach für deutsche Texte. `ollama pull bge-m3` vorher nötig |
+| Websuche | Engine `searxng`, URL `http://host.docker.internal:8081/search?q=<query>`, Sprache `de-DE`, 3 Treffer | lokale Metasuche, siehe `docker/searxng/` |
+
+Nach einem Wechsel des Embedding-Modells müssen bestehende Wissensdatenbanken neu
+indexiert werden (Admin → Documents → Reindex). Ältere Chat-Uploads passen nicht mehr
+zum neuen Vektorformat und müssen bei Bedarf neu angehängt werden.
+
+## Websuche mit SearXNG
+
+`docker/searxng/` enthält eine Compose-Datei, `settings.yml` (JSON-Format für Open WebUI
+aktiviert, Limiter aus, Sprache de-DE) und `setup.sh`, das einmalig ein Geheimnis in eine
+lokale `.env` schreibt und den Container `kanzlei-searxng` startet. Erreichbar nur vom Mac
+(`127.0.0.1:8081`) und aus dem Open-WebUI-Container über `host.docker.internal:8081`.
+
+```bash
+docker/searxng/setup.sh
+```
+
+Datenschutz: SearXNG leitet Suchbegriffe an öffentliche Suchmaschinen weiter. Die Suche
+schickt also die Frage, nie angehängte Dokumente, nach außen. Suchanfragen sollten keine
+Mandantennamen oder Steuernummern enthalten. Open WebUI kann vor jeder Suche eine
+Bestätigung verlangen (Admin → Web → Confirmation), für Mitarbeiter empfehlenswert.
+
+Laufzeit: Open WebUI 0.11 setzt die Websuche als Werkzeug um, das Modell sucht und ruft
+Seiten selbst ab (`search_web`, `fetch_url`). Lange Seiten kosten auf dem 48-GB-Mac
+spürbar Zeit, eine Frage mit zwei Seitenabrufen dauerte im Test gut drei Minuten.
+Trefferzahl bei 3 lassen, mehr verlängert jede Antwort.
+
 ## Prüflauf zur Tool-Wahl
 
 `eval/tool_choice/` misst, ob das lokale Modell bei typischen Anfragen das richtige Tool

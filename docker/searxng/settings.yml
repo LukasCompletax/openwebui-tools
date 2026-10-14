@@ -1,0 +1,39 @@
+# SearXNG-Einstellungen für die Kanzlei. Minimal gehalten, Rest sind Standardwerte.
+# Das Geheimnis kommt aus der Umgebungsvariable SEARXNG_SECRET, nicht aus dieser Datei.
+
+use_default_settings: true
+
+general:
+  instance_name: "Kanzlei-Suche"
+  debug: false
+  enable_metrics: false
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  default_lang: "de-DE"
+  # Open WebUI fragt das JSON-Format ab, HTML bleibt für den Browser.
+  formats:
+    - html
+    - json
+
+server:
+  # Nur lokal erreichbar, deshalb kein Rate-Limiter nötig.
+  limiter: false
+  public_instance: false
+  image_proxy: false
+  method: "GET"
+
+ui:
+  static_use_hash: true
+
+outgoing:
+  request_timeout: 6.0
+  max_request_timeout: 15.0
+  pool_connections: 50
+  pool_maxsize: 20
+
+enabled_plugins:
+  - "Hash plugin"
+  - "Self Information"
+  - "Tracker URL remover"
