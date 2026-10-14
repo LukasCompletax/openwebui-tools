@@ -1,0 +1,292 @@
+{
+  "model": "qwen3.8:27b-mlx",
+  "temperature": 0.0,
+  "runs": 1,
+  "tools": [
+    "translate_document",
+    "create_document",
+    "aggregate_spreadsheet",
+    "describe_spreadsheet",
+    "list_workflows",
+    "run_workflow",
+    "ocr_document"
+  ],
+  "summary": {
+    "ok": 22,
+    "tool_falsch": 0,
+    "tool_fehlt": 0,
+    "tool_unnoetig": 0,
+    "fehler": 0,
+    "accuracy": 1.0,
+    "avg_seconds": 4.4,
+    "unstable_cases": []
+  },
+  "rows": [
+    {
+      "id": "t01",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "seconds": 1.2,
+      "error": ""
+    },
+    {
+      "id": "t02",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "seconds": 1.4,
+      "error": ""
+    },
+    {
+      "id": "t03",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "seconds": 1.3,
+      "error": ""
+    },
+    {
+      "id": "c01",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "seconds": 9.7,
+      "error": ""
+    },
+    {
+      "id": "c02",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "seconds": 2.0,
+      "error": ""
+    },
+    {
+      "id": "c03",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "seconds": 22.2,
+      "error": ""
+    },
+    {
+      "id": "c04",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "seconds": 16.8,
+      "error": ""
+    },
+    {
+      "id": "s01",
+      "run": 1,
+      "expected": "describe_spreadsheet",
+      "got": "describe_spreadsheet",
+      "steps": [
+        "describe_spreadsheet"
+      ],
+      "verdict": "ok",
+      "seconds": 1.0,
+      "error": ""
+    },
+    {
+      "id": "s02",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "describe_spreadsheet",
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "seconds": 2.4,
+      "error": ""
+    },
+    {
+      "id": "s03",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "seconds": 1.4,
+      "error": ""
+    },
+    {
+      "id": "s04",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "seconds": 1.6,
+      "error": ""
+    },
+    {
+      "id": "n01",
+      "run": 1,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "seconds": 0.7,
+      "error": ""
+    },
+    {
+      "id": "n02",
+      "run": 1,
+      "expected": "run_workflow",
+      "got": "run_workflow",
+      "steps": [
+        "list_workflows",
+        "run_workflow"
+      ],
+      "verdict": "ok",
+      "seconds": 1.4,
+      "error": ""
+    },
+    {
+      "id": "n03",
+      "run": 1,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "o01",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "seconds": 0.7,
+      "error": ""
+    },
+    {
+      "id": "o02",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "seconds": 0.7,
+      "error": ""
+    },
+    {
+      "id": "o03",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "seconds": 0.7,
+      "error": ""
+    },
+    {
+      "id": "x01",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "seconds": 17.4,
+      "error": ""
+    },
+    {
+      "id": "x02",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "seconds": 4.2,
+      "error": ""
+    },
+    {
+      "id": "x03",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "seconds": 5.8,
+      "error": ""
+    },
+    {
+      "id": "x04",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "seconds": 1.8,
+      "error": ""
+    },
+    {
+      "id": "x05",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "seconds": 1.6,
+      "error": ""
+    }
+  ]
+}
