@@ -14,6 +14,80 @@ Zerlegen, Rendern und Speichern laufen deterministisch im Werkzeug.
 | `pdf_translate/` | PDF oder DOCX in eine Zielsprache übersetzen, Ergebnis als PDF oder DOCX zum Download | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `create_document/` | Aus Markdown-Text des Modells eine Datei erzeugen: DOCX, PDF, XLSX, MD, TXT, CSV | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `read_table/` | Angehängte XLSX/CSV beschreiben und deterministisch auswerten: Summe, Anzahl, Durchschnitt, Min, Max, gruppiert und gefiltert | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
+| `n8n_trigger/` | Freigegebene n8n-Workflows per Webhook auslösen, Ergebnis zurückgeben | Kern getestet, Installation und n8n-Seite stehen aus |
+
+## n8n_trigger
+
+### Was es tut
+
+Zwei Funktionen für das Modell:
+
+- `list_workflows`: zeigt die freigegebenen Workflows mit Beschreibung.
+- `run_workflow`: POST auf `N8N_BASE_URL/webhook/<name>` mit einem JSON-Objekt als
+  Parameter, gibt die Antwort des Workflows zurück.
+
+Sicherheitsregeln, die im Tool fest verdrahtet sind:
+
+- **Deny by default.** Nur Namen aus `ALLOWED_WORKFLOWS` dürfen aufgerufen werden.
+  Die Liste pflegt der Admin in den Tool-Einstellungen, das Modell kann sie nicht ändern.
+- Workflow-Namen müssen `[a-z0-9_-]` sein, keine Pfade, keine Query-Strings.
+- Jeder Aufruf trägt einen Idempotenz-Schlüssel im Header `X-Idempotency-Key` und im Body.
+  Wiederholungen (nur bei 502/503/504 oder Verbindungsfehler, Standard 0) nutzen denselben Schlüssel.
+- Ein Fehlerstatus wird gemeldet, nicht automatisch erneut ausgelöst.
+- An n8n gehen nur Nutzer-ID und Chat-ID, keine E-Mail, kein Name.
+- Das Geheimnis liegt in der Valve `AUTH_TOKEN`, nie in der URL. Antworten sind begrenzt.
+
+### Installation
+
+1. Tool importieren, Tool-ID `n8n_workflow`. httpx ist im Container vorhanden.
+2. In den Tool-Einstellungen (Zahnrad beim Tool) setzen:
+   - `N8N_BASE_URL`: `http://host.docker.internal:5678` (Open WebUI und n8n laufen in
+     getrennten Docker-Netzen, die Verbindung geht über den veröffentlichten Port).
+   - `AUTH_TOKEN`: ein zufälliger Wert, derselbe wie in der Header-Auth des Webhook-Nodes.
+   - `ALLOWED_WORKFLOWS`: eine Zeile je Workflow, z. B. `echo = Gibt Parameter zurück`.
+3. Dem Modell zuweisen.
+
+### n8n-Seite
+
+Zum Ausprobieren liegt `n8n_trigger/samples/n8n_echo_workflow.json` bereit: Webhook `POST /webhook/echo`,
+Code-Node, Respond to Webhook. In n8n über **Workflows → Import from File** einlesen und **aktivieren**.
+Der Beispiel-Workflow hat keine Header-Auth, für produktive Workflows im Webhook-Node
+**Authentication → Header Auth** setzen, Header `X-Webhook-Token`, Wert wie `AUTH_TOKEN`.
+
+Der Webhook bekommt diesen Body:
+
+```json
+{
+  "workflow": "echo",
+  "parameters": { "mandant": "M-100" },
+  "idempotency_key": "uuid",
+  "requested_by": { "user_id": "…", "chat_id": "…" },
+  "source": "open-webui"
+}
+```
+
+Beispielanfrage im Chat: „Welche Automatisierungen gibt es?“ und dann
+„Starte den Workflow echo mit mandant M-100.“
+
+### Einstellungen (Valves)
+
+| Valve | Standard | Bedeutung |
+|---|---|---|
+| `N8N_BASE_URL` | `http://host.docker.internal:5678` | n8n aus Sicht des Containers |
+| `WEBHOOK_PATH_PREFIX` | `webhook` | n8n-Präfix, `webhook-test` bei `TEST_MODE` |
+| `AUTH_HEADER_NAME`, `AUTH_TOKEN` | `X-Webhook-Token`, leer | Header-Auth. Leer = kein Header, nur lokal zum Testen |
+| `ALLOWED_WORKFLOWS` | leer | Freigabeliste. Leer = nichts erlaubt |
+| `TIMEOUT_SECONDS` | 60 | Zeitlimit je Aufruf |
+| `MAX_RETRIES` | 0 | Wiederholungen bei 502/503/504 |
+| `MAX_PARAMETER_CHARS`, `MAX_RESPONSE_CHARS` | 20000 | Größenbegrenzungen |
+| `TEST_MODE` | false | Nutzt den `webhook-test`-Pfad, wenn der Workflow im Editor auf „Listen“ steht |
+
+### Bekannte Grenzen
+
+- Synchron: Der Workflow muss innerhalb des Zeitlimits antworten. Lange Workflows sollten
+  sofort eine Zusage zurückgeben und das Ergebnis separat ablegen.
+- Der Idempotenz-Schlüssel wird gesendet, aber n8n prüft ihn nicht von selbst. Workflows
+  mit Nebenwirkungen müssen ihn selbst auswerten.
 
 ## read_table
 
