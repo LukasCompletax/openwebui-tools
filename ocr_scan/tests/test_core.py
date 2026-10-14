@@ -36,6 +36,7 @@ def test_build_command():
     assert "--skip-text" in cmd and "--force-ocr" not in cmd
     assert "--rotate-pages" in cmd and "--deskew" not in cmd
     assert cmd[cmd.index("--jobs") + 1] == "8", "Jobs werden auf 8 begrenzt"
+    assert cmd[cmd.index("--oversample") + 1] == "300"
     assert "--image-dpi" not in cmd
     cmd = t.build_command("/in/foto.JPG", "/out/x.pdf", "deu+eng", 2, False, True, True)
     assert "--force-ocr" in cmd and "--skip-text" not in cmd

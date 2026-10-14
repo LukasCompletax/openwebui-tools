@@ -58,6 +58,7 @@ def build_command(
         "--language", validate_languages(languages),
         "--output-type", "pdf",
         "--optimize", "0",
+        "--oversample", "300",  # Bilder unter 300 dpi vor der Erkennung hochrechnen, hilft bei groben Scans
         "--jobs", str(max(1, min(int(jobs), 8))),
         "--quiet",
     ]
@@ -262,6 +263,8 @@ class Tools:
                 "already_had_text": bool(source_chars) and total_chars <= source_chars and not force,
                 "instruction_for_assistant": (
                     "Download-Link als Markdown-Link zeigen. Den erkannten Text nur auf Nachfrage wiedergeben. "
+                    "OCR-Text kann Erkennungsfehler enthalten, besonders bei Zahlen, Beträgen und Namen: "
+                    "Beträge nie als gesichert darstellen, sondern auf Prüfung am Original hinweisen. "
                     "Bei low_text_warning darauf hinweisen, dass die Scanqualität schlecht sein könnte. "
                     "Bei already_had_text sagen, dass die Datei bereits durchsuchbar war und keine neue Textebene nötig war."
                 ),

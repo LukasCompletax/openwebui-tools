@@ -15,7 +15,7 @@ Zerlegen, Rendern und Speichern laufen deterministisch im Werkzeug.
 | `create_document/` | Aus Markdown-Text des Modells eine Datei erzeugen: DOCX, PDF, XLSX, MD, TXT, CSV | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `read_table/` | Angehängte XLSX/CSV beschreiben und deterministisch auswerten: Summe, Anzahl, Durchschnitt, Min, Max, gruppiert und gefiltert | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `n8n_trigger/` | Freigegebene n8n-Workflows per Webhook auslösen, Ergebnis zurückgeben | Installiert, Probelauf mit qwen3.8:27b-mlx und n8n erfolgreich |
-| `ocr_scan/` | Gescannte PDF oder Bild per OCR durchsuchbar machen, Text zurückgeben | Kern und Image getestet, Container-Wechsel steht aus |
+| `ocr_scan/` | Gescannte PDF oder Bild per OCR durchsuchbar machen, Text zurückgeben | Installiert, Container läuft mit OCR-Image, Probelauf erfolgreich |
 
 ## n8n_trigger
 
