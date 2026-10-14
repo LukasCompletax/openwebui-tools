@@ -12,7 +12,30 @@ Zerlegen, Rendern und Speichern laufen deterministisch im Werkzeug.
 | Ordner | Zweck | Status |
 |---|---|---|
 | `pdf_translate/` | PDF oder DOCX in eine Zielsprache übersetzen, Ergebnis als PDF oder DOCX zum Download | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
-| `create_document/` | Aus Markdown-Text des Modells eine Datei erzeugen: DOCX, PDF, XLSX, MD, TXT, CSV | Kern getestet, Installation steht aus |
+| `create_document/` | Aus Markdown-Text des Modells eine Datei erzeugen: DOCX, PDF, XLSX, MD, TXT, CSV | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
+
+## Installation eines Tools
+
+Der Code-Editor in Open WebUI hat eingefügten Code beschnitten („No Tools class
+found in the module“). Zuverlässig ist der Import einer JSON-Datei:
+
+```bash
+python3 scripts/build_import.py create_document/create_document_tool.py --id datei_erzeugen
+```
+
+Das Skript schreibt `build/<id>.tools.json`, liest die Datei zur Kontrolle zurück und
+legt eine Kopie in `~/Downloads`, weil der Dateidialog dort am einfachsten hinfindet.
+
+1. In Open WebUI als Admin: **Workspace → Tools**, Menü neben dem Plus, **Import JSON**,
+   die Datei aus Downloads wählen.
+2. **Admin Panel → Settings → Models**, beim Modell auf den Stift, unter **Tools** das
+   Werkzeug anhaken, speichern. Basismodelle aus Ollama erscheinen nur dort, nicht
+   unter Workspace → Models.
+3. Alternativ pro Chat: Plus neben dem Eingabefeld, Tool einschalten.
+
+Ein erneuter Import mit derselben ID überschreibt den gespeicherten Code.
+Die Tool-IDs: `pdf_translate` → `dokument_ubersetzen_pdf_docx_pdf_docx` (historisch,
+über den Editor angelegt), `create_document` → `datei_erzeugen`.
 
 ## create_document
 
@@ -33,8 +56,7 @@ Aufzählungen, nummerierte Listen, Tabellen, Codeblöcke, Trennlinien sowie **fe
 
 ### Installation
 
-Wie bei `pdf_translate`: Inhalt von `create_document/create_document_tool.py` unter
-Workspace → Tools einfügen, speichern, im Admin-Bereich dem Modell zuweisen.
+Siehe „Installation eines Tools“ oben, Tool-ID `datei_erzeugen`.
 Die Abhängigkeiten reportlab, python-docx und openpyxl sind im Container vorhanden.
 
 Beispielanfrage im Chat: „Schreib mir ein Anschreiben an das Finanzamt wegen
@@ -83,14 +105,12 @@ Gescannte PDFs ohne Textebene werden mit einer klaren Meldung abgelehnt.
 
 ### Installation in Open WebUI
 
-1. Open WebUI als Admin öffnen, **Workspace → Tools → +**.
-2. Inhalt von `pdf_translate/pdf_translate_tool.py` einfügen, speichern.
-   Beim ersten Laden installiert Open WebUI `reportlab` aus dem Docstring-Frontmatter.
-   Das setzt voraus, dass der Container PyPI erreichen darf.
-3. **Workspace → Models → Modell bearbeiten → Tools**: das Werkzeug für das Qwen-Modell aktivieren.
-   Alternativ im Chat über das Werkzeug-Symbol pro Unterhaltung zuschalten.
-4. Function Calling muss auf **Native** stehen (Standard in 0.11). Qwen 3 unterstützt das.
-5. Im Chat eine PDF anhängen und schreiben: „Übersetze dieses Dokument nach Englisch als PDF.“
+Siehe „Installation eines Tools“ oben. Beim ersten Laden installiert Open WebUI
+`reportlab` aus dem Docstring-Frontmatter, dafür muss der Container PyPI erreichen.
+Function Calling muss auf **Native** stehen (Standard in 0.11), Qwen 3 unterstützt das.
+
+Probelauf: im Chat eine PDF anhängen und schreiben:
+„Übersetze dieses Dokument nach Englisch als PDF.“
 
 ### Einstellungen (Valves)
 
