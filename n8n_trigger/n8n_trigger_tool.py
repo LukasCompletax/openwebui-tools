@@ -159,7 +159,7 @@ class Tools:
 
     async def list_workflows(self, __user__: Optional[dict] = None) -> str:
         """
-        Listet die freigegebenen n8n-Workflows mit Beschreibung. Nutze dieses Tool, bevor du einen Workflow auslöst, oder wenn der Nutzer fragt, welche Automatisierungen es gibt.
+        Listet die freigegebenen n8n-Workflows mit Beschreibung. Nutze dieses Tool, bevor du einen Workflow auslöst, und immer wenn der Nutzer nach n8n, Workflows, Webhooks oder Automatisierungen in n8n fragt. Nicht verwechseln mit geplanten Chat-Automatisierungen von Open WebUI.
 
         :return: JSON mit Namen und Beschreibungen der freigegebenen Workflows.
         """
