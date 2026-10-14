@@ -130,6 +130,12 @@ Zum Ausprobieren liegt `read_table/samples/beispiel_buchungen.xlsx` bereit, Inha
 - Gruppierung nach mehreren Spalten gleichzeitig gibt es nicht; dafür zweimal filtern.
 - Zellinhalte gehen an das lokale Modell. Für Mandantendaten gilt weiterhin: kein Cloud-Modell wählen.
 
+## Prüflauf zur Tool-Wahl
+
+`eval/tool_choice/` misst, ob das lokale Modell bei typischen Anfragen das richtige Tool
+wählt. Stand 14.10.2026 mit qwen3.8:27b-mlx: 22 von 22 bei Temperatur 0, 65 von 66 bei
+Temperatur 0,7. Nach jeder Änderung an Tool-Beschreibungen wiederholen, Details dort.
+
 ## Installation eines Tools
 
 Der Code-Editor in Open WebUI hat eingefügten Code beschnitten („No Tools class
