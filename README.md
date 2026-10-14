@@ -11,7 +11,58 @@ Zerlegen, Rendern und Speichern laufen deterministisch im Werkzeug.
 
 | Ordner | Zweck | Status |
 |---|---|---|
-| `pdf_translate/` | PDF oder DOCX in eine Zielsprache übersetzen, Ergebnis als PDF oder DOCX zum Download | Kern getestet, Open-WebUI-Anbindung gegen Version 0.11.4 gebaut |
+| `pdf_translate/` | PDF oder DOCX in eine Zielsprache übersetzen, Ergebnis als PDF oder DOCX zum Download | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
+| `create_document/` | Aus Markdown-Text des Modells eine Datei erzeugen: DOCX, PDF, XLSX, MD, TXT, CSV | Kern getestet, Installation steht aus |
+
+## create_document
+
+### Was es tut
+
+Das Modell schreibt den Inhalt als Markdown, das Tool rendert daraus die Datei und
+legt sie als Download im Chat ab. Unterstützt werden Überschriften, Absätze,
+Aufzählungen, nummerierte Listen, Tabellen, Codeblöcke, Trennlinien sowie **fett**,
+*kursiv* und `code` im Text.
+
+| Format | Besonderheit |
+|---|---|
+| docx | Word-Überschriften, Listen mit Word-Formatvorlagen, Tabellen mit Rahmen |
+| pdf | DejaVu Sans eingebettet, Tabellen mit Kopfzeile, Codeblöcke in Courier |
+| xlsx | Jede Markdown-Tabelle wird ein Blatt, Blattname aus der vorangehenden Überschrift. Reine Zahlen wie `42` oder `99.5` werden Zahlen, deutsche Formate wie `1.234,56 €` bleiben Text. Fällt keine Tabelle an, wird CSV-artiger Text erkannt. |
+| csv | Erste Tabelle, Semikolon als Trenner, UTF-8 mit BOM, damit Excel Umlaute richtig liest |
+| md, txt | Markdown unverändert, Text ohne Auszeichnungen |
+
+### Installation
+
+Wie bei `pdf_translate`: Inhalt von `create_document/create_document_tool.py` unter
+Workspace → Tools einfügen, speichern, im Admin-Bereich dem Modell zuweisen.
+Die Abhängigkeiten reportlab, python-docx und openpyxl sind im Container vorhanden.
+
+Beispielanfrage im Chat: „Schreib mir ein Anschreiben an das Finanzamt wegen
+Fristverlängerung als Word-Datei.“ oder „Mach aus dieser Liste eine Excel-Tabelle.“
+
+### Einstellungen (Valves)
+
+| Valve | Standard | Bedeutung |
+|---|---|---|
+| `MAX_CONTENT_CHARS` | 200000 | Obergrenze für den Inhalt. |
+| `FONT_PATH`, `BOLD_FONT_PATH` | DejaVu Sans im Container | TTF für PDF. Fehlen sie, Helvetica. |
+| `CSV_DELIMITER` | `;` | Trennzeichen für CSV. |
+
+Nutzer-Valve: `DEFAULT_OUTPUT_FORMAT` (docx).
+
+### Tests
+
+```bash
+.venv/bin/pip install openpyxl
+.venv/bin/python create_document/tests/test_core.py
+```
+
+### Bekannte Grenzen
+
+- Verschachtelte Listen werden flach. Bilder werden nicht eingebettet.
+- Tabellen in DOCX und PDF haben keine Spaltenausrichtung aus Markdown (`---:`).
+- Das Tool erzeugt genau das, was das Modell in `content` schreibt. Lücken im Inhalt
+  sind Lücken des Modells, nicht des Tools.
 
 ## pdf_translate
 
