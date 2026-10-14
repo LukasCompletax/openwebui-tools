@@ -1,0 +1,1191 @@
+{
+  "model": "qwen3.8:27b-mlx",
+  "temperature": 0.7,
+  "runs": 3,
+  "tools": [
+    "translate_document",
+    "create_document",
+    "aggregate_spreadsheet",
+    "describe_spreadsheet",
+    "list_workflows",
+    "run_workflow",
+    "ocr_document"
+  ],
+  "summary": {
+    "ok": 65,
+    "tool_falsch": 0,
+    "tool_fehlt": 1,
+    "tool_unnoetig": 0,
+    "fehler": 0,
+    "accuracy": 0.985,
+    "avg_seconds": 4.5,
+    "unstable_cases": [
+      "n01"
+    ],
+    "args_checked": 36,
+    "args_ok": 36
+  },
+  "rows": [
+    {
+      "id": "t01",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "vertrag.pdf",
+        "output_format": "pdf",
+        "target_language": "Englisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.2,
+      "error": ""
+    },
+    {
+      "id": "t01",
+      "run": 2,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "vertrag.pdf",
+        "output_format": "pdf",
+        "target_language": "Englisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "t01",
+      "run": 3,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "vertrag.pdf",
+        "output_format": "pdf",
+        "target_language": "Englisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "t02",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "bilanz_2025.docx",
+        "output_format": "docx",
+        "target_language": "Französisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.4,
+      "error": ""
+    },
+    {
+      "id": "t02",
+      "run": 2,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "bilanz_2025.docx",
+        "output_format": "docx",
+        "target_language": "Französisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.0,
+      "error": ""
+    },
+    {
+      "id": "t02",
+      "run": 3,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "bilanz_2025.docx",
+        "output_format": "docx",
+        "target_language": "Französisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.9,
+      "error": ""
+    },
+    {
+      "id": "t03",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "schreiben_finanzamt.pdf",
+        "output_format": "pdf",
+        "target_language": "Englisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.6,
+      "error": ""
+    },
+    {
+      "id": "t03",
+      "run": 2,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "schreiben_finanzamt.pdf",
+        "output_format": "pdf",
+        "target_language": "Englisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.9,
+      "error": ""
+    },
+    {
+      "id": "t03",
+      "run": 3,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "schreiben_finanzamt.pdf",
+        "output_format": "pdf",
+        "target_language": "Englisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "c01",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Anschreiben an das Finanzamt – Bitte um Fristverlängerung\n\n**Musterfirma Beispiel GmbH**\nMusterstraße 1\n12345 Musterstadt\n\n**Finanzamt Musterstadt**\nSchulstraße 10\n12345 Musterstadt\n\nMusterstadt, den [Datum]\n\n---\n\n**Betreff: Bitte um Fristverlängerung**\n**Steuerart:** [z. B. Einkommensteuer / Umsatzsteuer / Körperschaftsteuer]\n**Steuerjahr:** [z. B. 2024]\n**Steuernummer:** [XXXXXXX]\n\n---\n\nSehr geehrte Damen und Herren,\n\nhiermit beantrage ich im Namen der **Musterfirma Beispiel GmbH** die Verlängerung der Abgabefrist für die oben genannte Steuererklärung.\n\nDie ursprünglich gesetzte Frist zur Abgabe der Steuererklärung zum [Datum der Frist] kann leider nicht eingehalten werden. Dies liegt an [kurze Begründung, z. B. „derzeitigem Ausstand wichtiger Unterlagen“, „komplexer steuerlicher Sachverhalte“ oder „derzeitigem Arbeitsaufkommen“].\n\nIch bitte Sie daher höflich, mir eine Fristverlängerung bis zum **[gewünschte neue Frist, z. B. 31.08.2025]** zu gewähren. Die vollständige Steuererklärung wird fristgerecht nachgereicht.\n\nSollten Sie weitere Informationen oder Unterlagen benötigen, stehe ich Ihnen gerne zur Verfügung.\n\nMit freundlichen Grüßen\n\n[Name des Vertreters]\nGeschäftsführer\nMusterfirma Beispiel GmbH\n\n---\n\n**Hinweis:** Dieses Schreiben ist ein Muster und sollte vor dem Versand an das zuständige Finanzamt angepasst werden. Bitte prüfen Sie, ob eine Fristverlängerung überhaupt möglich ist und welche Fristen für den jeweiligen Steuerfall gelten.",
+        "file_name": "Anschreiben Finanzamt Fristverlängerung",
+        "output_format": "docx",
+        "title": "Anschreiben an das Finanzamt – Fristverlängerung"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 10.1,
+      "error": ""
+    },
+    {
+      "id": "c01",
+      "run": 2,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "**Musterfirma Beispiel GmbH**\nMusterstraße 1\n12345 Musterstadt\n\nFinanzamt Musterstadt\nAktenzeichen: [bitte ergänzen]\n12345 Musterstadt\n\nMusterstadt, den [Datum]\n\n# Antrag auf Fristverlängerung zur Abgabe der Einkommensteuer- / Körperschaftsteuererklärung\n\nSehr geehrte Damen und Herren,\n\nhiermit beantrage ich als Geschäftsführer/in der **Musterfirma Beispiel GmbH** die Verlängerung der Abgabefrist für die Steuererklärung [bitte ergänzen: für das Veranlagungsjahr 20XX].\n\nDie ursprüngliche Abgabefrist ist am [Datum] abgelaufen. Aufgrund [bitte Grund ergänzen, z. B. „ausstehender Unterlagen aus dem Rechnungswesen“ / „der laufenden Geschäftsführung“ / „der laufenden Buchprüfung“] ist es uns derzeit nicht möglich, die Steuererklärung fristgerecht einzureichen.\n\nIch bitte Sie daher, die Abgabefrist bis zum [gewünschtes Datum] zu verlängern. Die Steuererklärung wird selbstverständlich unverzüglich nach Verfügbarkeit der erforderlichen Unterlagen nachgereicht.\n\nFür Rückfragen stehe ich Ihnen gerne zur Verfügung.\n\nMit freundlichen Grüßen\n\n[Unterschrift]\n\n[Name des/der Geschäftsführers/in]\nMusterfirma Beispiel GmbH\n\n---\n\n**Anlagen:** [ggf. Unterlagen ergänzen]\n",
+        "file_name": "Anschreiben Finanzamt Fristverlängerung",
+        "output_format": "docx",
+        "title": "Anschreiben an das Finanzamt – Fristverlängerung"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 7.9,
+      "error": ""
+    },
+    {
+      "id": "c01",
+      "run": 3,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Musterfirma Beispiel GmbH\nMusterstraße 1\n12345 Musterstadt\nTel.: 0123 / 456789\nE-Mail: kontakt@beispiel-gmbh.de\n\n---\n\n**Finanzamt Musterstadt**\nFinanzamt-Musterstraße 10\n12345 Musterstadt\n\nMusterstadt, den 10. Mai 2025\n\n---\n\n## Antrag auf Fristverlängerung zur Abgabe der Einkommensteuererklärung\n\nSehr geehrte Damen und Herren,\n\nhiermit beantrage ich im Namen der **Musterfirma Beispiel GmbH** (Steuernummer: 123/456/7890) eine Fristverlängerung zur Abgabe der Einkommensteuererklärung für das Veranlagungsjahr 2024.\n\nDie ursprüngliche Abgabefrist ist am **31. Dezember 2025** abgelaufen. Aufgrund der nachfolgenden Gründe ist es uns derzeit nicht möglich, die Steuererklärung fristgerecht einzureichen:\n\n- Die Unterlagen wurden erst am 15. April 2025 durch den Steuerberater vollständig zur Verfügung gestellt.\n- Es sind noch offene Rückfragen an das Finanzamt bezüglich bestimmter Positionen offen.\n- Die Erstellung der Steuererklärung erfordert die Berücksichtigung zusätzlicher, erst kürzlich bekannt gewordener Sachverhalte.\n\nIch bitte Sie daher, die Abgabefrist um **drei Monate**, also bis zum **31. März 2026**, zu verlängern.\n\nAlle erforderlichen Unterlagen werden wir in diesem Zeitraum vollständig und fristgerecht nachreichen. Für Rückfragen stehe ich Ihnen jederzeit gerne zur Verfügung.\n\nMit freundlichen Grüßen\n\n---\n\n**[Unterschrift]**\n\nMax Mustermann\nGeschäftsführer\nMusterfirma Beispiel GmbH\n\n---\n\n*Anlagen:*\n- *Steuerbescheid 2024 (falls vorhanden)*\n- *Nachweis der Steuerberaterbeauftragung*",
+        "file_name": "Anschreiben Finanzamt",
+        "output_format": "docx",
+        "title": "Anschreiben an das Finanzamt – Fristverlängerung"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 10.4,
+      "error": ""
+    },
+    {
+      "id": "c02",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Kostenübersicht\n\n| Position | Betrag (€) |\n|---|---|\n| Honorar | 1.200 |\n| Auslagen | 80 |\n| Fahrtkosten | 45 |\n| **Gesamt** | **1.325** |",
+        "file_name": "Kostenuebersicht",
+        "output_format": "xlsx",
+        "title": "Kostenübersicht"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 2.3,
+      "error": ""
+    },
+    {
+      "id": "c02",
+      "run": 2,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "| Position | Betrag (€) |\n| --- | --- |\n| Honorar | 1200 |\n| Auslagen | 80 |\n| Fahrtkosten | 45 |\n| **Gesamt** | **1325** |",
+        "file_name": "Abrechnung",
+        "output_format": "xlsx",
+        "title": "Abrechnung"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.9,
+      "error": ""
+    },
+    {
+      "id": "c02",
+      "run": 3,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Kostenübersicht\n\n| Position | Betrag |\n|---|---|\n| Honorar | 1.200 € |\n| Auslagen | 80 € |\n| Fahrtkosten | 45 € |\n| **Gesamt** | **1.325 €** |",
+        "file_name": "Kostenübersicht",
+        "output_format": "xlsx",
+        "title": "Kostenübersicht"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.9,
+      "error": ""
+    },
+    {
+      "id": "c03",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Checkliste: Jahresabschluss-Unterlagen für Einzelunternehmer\n\n**Jahresabschluss des Geschäftsjahres:** ____________________\n**Unternehmer:** ____________________\n**Erstellt am:** ____________________\n\n---\n\n## 1. Allgemeine Unterlagen\n\n- [ ] **Steuernummer / Umsatzsteuer-Identifikationsnummer** (USt-IdNr.)\n- [ ] **Handelsregisterauszug** (falls erforderlich)\n- [ ] **Gewerbeanmeldung** (bei Gewerbebetrieb)\n- [ ] **Unternehmensvertrag / Gesellschaftsvertrag** (falls zutreffend)\n- [ ] **Vollmachten / Vertretungsberechtigungen**\n\n---\n\n## 2. Buchhaltungsunterlagen\n\n- [ ] **Jahresabschluss (Bilanz)** – Stichtag: __________\n- [ ] **Gewinn- und Verlustrechnung (GuV)**\n- [ ] **Anlagenverzeichnis** (falls vorhanden)\n- [ ] **Einzelsaldenliste** zum Bilanzstichtag\n- [ ] **Lohnabrechnungen** (gesamtes Jahr, falls Mitarbeiter vorhanden)\n- [ ] **Umsatzsteuervoranmeldungen** (alle Quartale / Monate)\n- [ ] **Umsatzsteuervoranmeldung (Jahres)**\n- [ ] **Zahlungsverkehr / Bankauszüge** (alle Konten, ganzes Jahr)\n- [ ] **Kassenbuch / Kassenbestandsnachweis**\n- [ ] **Buchungsprotokoll / Belegverzeichnis**\n\n---\n\n## 3. Umsatz- und Einnahmeseite\n\n- [ ] **Rechnungen / Belege für alle Einnahmen**\n- [ ] **Umsatzstatistik** (nach Kundengruppe / Produkt / Dienstleistung)\n- [ ] **Offene Postenliste (Debitoren)** zum Stichtag\n- [ ] **Forderungsverzicht / Abschreibungen** (falls zutreffend)\n\n---\n\n## 4. Aufwands- und Ausgabeseite\n\n- [ ] **Rechnungen / Belege für alle Ausgaben**\n- [ ] **Mietverträge / Nebenkostenabrechnungen**\n- [ ] **Versicherungsverträge** (Betriebshaftpflicht, etc.)\n- [ ] **Arbeitsverträge / Honorarverträge** (Mitarbeiter, Freelancer)\n- [ ] **Fördermittel / Zuschüsse** (falls zutreffend)\n- [ ] **Offene Postenliste (Kreditoren)** zum Stichtag\n\n---\n\n## 5. Vermögens- und Finanzseite\n\n- [ ] **Bankkontenstände** (alle Konten zum Stichtag)\n- [ ] **Kassenbestand** zum Stichtag\n- [ ] **Forderungen und Verbindlichkeiten** (Detailaufstellung)\n- [ ] **Anlagevermögen / Inventarliste** (mit Anschaffungsdaten)\n- [ ] **Eigenkapitalnachweis / Nachweis der Einlagen und Entnahmen**\n\n---\n\n## 6. Steuerliche Unterlagen\n\n- [ ] **Einkommensteuererklärung** (Vordruck E1, E1a, E1b)\n- [ ] **Anlage G** (Einnahmen-Überschussrechnung, falls EÜR)\n- [ ] **Anlage S** (Bilanz, falls Bilanzsteuerpflicht)\n- [ ] **Umsatzsteuererklärung** (Jahreserklärung)\n- [ ] **Gewerbesteuererklärung** (falls Gewerbesteuerpflichtig)\n- [ ] **Vorauszahlungen** (Einkommensteuer, Gewerbesteuer, USt)\n- [ ] **Förderung / Abschreibungen** (AfA-Tabellen)\n\n---\n\n## 7. Sonstige Unterlagen\n\n- [ ] **Nachweis der Sozialversicherung** (Selbstversicherung / Mitarbeiter)\n- [ ] **Krankenkassen- / Rentenversicherungsnachweise**\n- [ ] **Betriebsprüfung / Vorjahresprüfung** (falls vorhanden)\n- [ ] **Steuerberater- / Wirtschaftsprüferbericht** (falls vorhanden)\n- [ ] **Eidesstattliche Versicherung** (falls erforderlich)\n- [ ] **Genehmigungen / Lizenzen** (branchenspezifisch)\n\n---\n\n## 8. Fristen (Orientierung)\n\n| Frist | Termin |\n|-------|--------|\n| Steuererklärung (Einkommensteuer) | 31.07. des Folgejahres (ohne Steuerberater) |\n| Steuererklärung (mit Steuerberater) | 31.12. des Folgejahres (je nach Einreichung) |\n| Umsatzsteuer-Jahreserklärung | 31.03. des Folgejahres |\n| Gewerbesteuererklärung | 31.12. des Folgejahres |\n| Aufbewahrungspflicht (Belege) | 10 Jahre (Steuerbelege) / 6 Jahre (Buchhaltungsbelege) |\n\n---\n\n## 9. Hinweise\n\n- [ ] Alle Belege **chronologisch** und **vollständig** vorhanden\n- [ ] **Privatanteil** bei gemischten Ausgaben korrekt getrennt\n- [ ] **Abschreibungen** korrekt berechnet und nachgewiesen\n- [ ] **Umsatzsteuer** korrekt erfasst (Soll- und Istbesteuerung)\n- [ ] **Fristen** eingehalten\n- [ ] **Elektronische Archivierung** (falls genutzt) ordnungsgemäß\n\n---\n\n**Unterschrift / Bestätigung:**\n\n________________________\nOrt, Datum\n\n---\n\n*Diese Checkliste dient als Orientierung und ersetzt keine individuelle steuerliche Beratung. Bitte prüfen Sie mit Ihrem Steuerberater, welche Unterlagen in Ihrem konkreten Fall erforderlich sind.*",
+        "file_name": "Checkliste Jahresabschluss Einzelunternehmer",
+        "output_format": "pdf",
+        "title": "Checkliste Jahresabschluss-Unterlagen für Einzelunternehmer"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 26.7,
+      "error": ""
+    },
+    {
+      "id": "c03",
+      "run": 2,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Checkliste: Jahresabschluss-Unterlagen für Einzelunternehmer\n\nDiese Checkliste hilft Ihnen dabei, alle relevanten Unterlagen für den Jahresabschluss Ihres Einzelunternehmens vollständig und strukturiert zusammenzustellen.\n\n---\n\n## 1. Persönliche Angaben & Stammdaten\n- [ ] Name, Anschrift und Steuernummer des Einzelunternehmers\n- [ ] Betriebsanschrift und ggf. Nebengeschäfte\n- [ ] Gewerbe- bzw. Eintragungsnachweis\n- [ ] Umsatzsteuer-Identifikationsnummer (USt-IdNr.)\n- [ ] Angaben zu Gesellschaftern / Miteigentümern (falls vorhanden)\n\n---\n\n## 2. Umsatz- und Erlösnachweise\n- [ ] Umsatznachweise (Rechnungen, Lieferscheine, Kassenbelege)\n- [ ] Kassenbücher / Kassenauszüge\n- [ ] Bankauszüge für alle Geschäftskonten\n- [ ] Offene Posten / Forderungen aus offenen Geschäften\n- [ ] Gutschriften, Nachlässe, Skonti\n- [ ] Erlöse aus dem Verkauf von Privatvermögen (falls betrieblich relevant)\n\n---\n\n## 3. Betriebsausgaben & Kosten\n- [ ] Belege für Betriebsausgaben (Miete, Nebenkosten, Versicherungen, Telefon, Internet)\n- [ ] Belege für Material- und Warenkäufe\n- [ ] Belege für Personal- und Dienstleistungskosten (Lohnabrechnungen, Rechnungen)\n- [ ] Belege für Reisekosten und Verpflegungsmehraufwendungen\n- [ ] Abschreibungspläne / Anlagenverzeichnis (z. B. für Fahrzeuge, Maschinen, EDV)\n- [ ] Belege für Werbungskosten (Anzeigen, Marketing, Messen)\n- [ ] Belege für Bank- und Kreditkosten (Zinsen, Kontoführungsgebühren)\n- [ ] Belege für Steuerberater- und Rechtskosten\n\n---\n\n## 4. Anlagevermögen & Abschreibungen\n- [ ] Anlagenverzeichnis mit Anschaffungsdaten, Anschaffungskosten und Nutzungsdauer\n- [ ] Abschreibungspläne (lineare oder degressive Abschreibung)\n- [ ] Belege für Anschaffungen, Verkäufe und Verluste von Wirtschaftsgütern\n- [ ] Angaben zu Leasingverträgen (Finanz- oder Operating-Leasing)\n\n---\n\n## 5. Verbindlichkeiten\n- [ ] Offene Liefer- und Dienstleistungsverbindlichkeiten\n- [ ] Kreditverträge und Auszüge (Bankkredite, Leasing, Lieferantenkredit)\n- [ ] Verbindlichkeiten gegenüber Gesellschaftern / Gesellschafterdarlehen\n- [ ] Rückstellungen (z. B. für urlaubsbedingte Verpflichtungen, Gewährleistung)\n\n---\n\n## 6. Einnahmen und Ausgaben (Einnahmen-Überschuss-Rechnung / EÜR)\n- [ ] Vollständige Einnahmenübersicht nach Art und Quelle\n- [ ] Vollständige Ausgabenübersicht nach Art und Quelle\n- [ ] Zuordnung der Einnahmen und Ausgaben zum jeweiligen Wirtschaftsjahr\n- [ ] Zuordnung von Privatanteilen (z. B. Privatnutzung eines Fahrzeugs)\n\n---\n\n## 7. Umsatzsteuer\n- [ ] Umsatzsteuervoranmeldungen (monatlich oder vierteljährlich)\n- [ ] Jahresabschluss der Umsatzsteuer\n- [ ] Eingangsrechnungen mit ausgewiesener Vorsteuer\n- [ ] Ausgangsrechnungen mit ausgewiesener Umsatzsteuer\n- [ ] Belege für steuerfreie Umsätze (falls vorhanden)\n\n---\n\n## 8. Sonstige Unterlagen\n- [ ] Buchführungsunterlagen (laufende Buchführung, Kassenbuch, Belegsammlungen)\n- [ ] Kassensturz / Kassenprüfung (ggf. mit Zeugen)\n- [ ] Inventur / Bestandsaufnahme (Warenbestand, Material, Anlagevermögen)\n- [ ] Verträge (Mietverträge, Leasingverträge, Lieferantenverträge)\n- [ ] Versicherungsverträge und Belege\n- [ ] Nachweise über Fördermittel / Zuschüsse (falls vorhanden)\n\n---\n\n## 9. Fristen & Einreichung\n- [ ] **Einnahmen-Überschuss-Rechnung (EÜR):** Frist = 31.05. des Folgejahres (mit Steuerberater ggf. 31.07.)\n- [ ] **Umsatzsteuer-Jahreserklärung:** Frist = 31.03. des Folgejahres\n- [ ] **Gewerbesteuererklärung** (falls gewerblich): Frist = 31.05. des Folgejahres\n- [ ] **Einkommensteuererklärung:** Frist = 31.05. des Folgejahres (mit Steuerberater ggf. 31.07.)\n- [ ] Alle Unterlagen **10 Jahre** aufbewahren (Bilanz, Buchführung, Belege, Steuererklärungen)\n\n---\n\n## 10. Abschlusskontrolle\n- [ ] Alle Belege vollständig und lesbar\n- [ ] Alle Konten abgestimmt (Bank, Kasse, Offene Posten)\n- [ ] Alle Privatanteile korrekt herausgerechnet\n- [ ] Alle Abschreibungen korrekt berechnet\n- [ ] Umsatzsteuer-Voranmeldungen eingereicht\n- [ ] Unterlagen an den Steuerberater übergeben\n- [ ] Kopien / digitale Sicherung der Unterlagen vorhanden\n\n---\n\n*Hinweis: Diese Checkliste dient als Orientierungshilfe und ersetzt keine steuerliche Beratung. Für individuelle Fragen wenden Sie sich bitte an Ihren Steuerberater.*",
+        "file_name": "Checkliste Jahresabschluss Einzelunternehmer",
+        "output_format": "pdf",
+        "title": "Checkliste Jahresabschluss-Unterlagen Einzelunternehmer"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 28.2,
+      "error": ""
+    },
+    {
+      "id": "c03",
+      "run": 3,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Checkliste Jahresabschluss-Unterlagen – Einzelunternehmer\n\n**Name / Firma:** ___________________________\n**Geschäftsjahr:** ___________________________\n**Erstellt am:** ___________________________\n\n---\n\n## 1. Vorbereitende Unterlagen\n\n- [ ] Handelsregisterauszug / Gewerbeanmeldung\n- [ ] USt-Id-Nr. und Steuer-Nr. (Steuerbescheid)\n- [ ] Firmenbuch / Adressdaten (Anschrift, Telefon, E-Mail)\n- [ ] Liste der verwendeten Bank- und Geschäftskonten\n- [ ] Versicherungsnachweise (Betriebshaftpflicht, etc.)\n- [ ] Miete / Pachtvertrag für Geschäftsräume\n\n---\n\n## 2. Einnahmen und Ausgaben\n\n- [ ] Alle Einnahmebelege (Rechnungen, Belege, Quittungen)\n- [ ] Alle Ausgabebelege (Rechnungen, Lieferscheine, Belege)\n- [ ] Bankauszüge für alle Geschäftskonten (vollständig, alle Monate)\n- [ ] Kassenbelege / Kassenbuch\n- [ ] Einnahmen aus privaten Konten (falls gemischt genutzt)\n- [ ] Umsatznachweise (z. B. Online-Shops, Marktplätze, PayPal-Übersichten)\n\n---\n\n## 3. Umsatzsteuer (USt)\n\n- [ ] Umsatzsteuervoranmeldungen (monatlich / vierteljährlich)\n- [ ] USt-Jahreserklärung\n- [ ] Einnahmen-Überschuss-Rechnung (EÜR)\n- [ ] Gutschriften und Stornierungen\n- [ ] Vorsteuerabzugsberechtigte Belege (Rechnungen mit USt-Ausweis)\n- [ ] USt-Abrechnungen von Plattformen / Marktplätzen\n\n---\n\n## 4. Einkommensteuer\n\n- [ ] Einkommensteuererklärung (Anlage EÜR)\n- [ ] Anlage G (falls Kapitalvermögen)\n- [ ] Anlage S (falls Gewerbebetrieb)\n- [ ] Anlage Vorsorgeaufwand\n- [ ] Anlagen für Sonderausgaben und außergewöhnliche Belastungen\n- [ ] Steuerbescheid des Vorjahres (zur Abgleich)\n\n---\n\n## 5. Investitionen und Abschreibungen\n\n- [ ] Anschaffungsbelege für alle Investitionen (Rechnungen)\n- [ ] AfA-Tabelle (Abgrenzung beweglich / unbeweglich)\n- [ ] Investitionsabzugsbetrag (falls beantragt)\n- [ ] Sondereinlage / Sonderauszahlung (falls vorhanden)\n- [ ] Restbuchwertliste zum Jahresende\n\n---\n\n## 6. Personal und Sozialversicherung\n\n- [ ] Gehaltsabrechnungen (falls Mitarbeiter)\n- [ ] Beitragsnachweise (Sozialversicherung, Umlagen)\n- [ ] Lohnsteueranmeldungen\n- [ ] Arbeitsverträge / Auftragsverträge\n- [ ] Reisekostenabrechnungen / Fahrtenbuch\n\n---\n\n## 7. Sonstige Unterlagen\n\n- [ ] Reisekostenabrechnung / Fahrtenbuch (privat / betrieblich)\n- [ ] Versicherungsbelege (betrieblich)\n- [ ] Spendenquittungen (falls steuerlich relevant)\n- [ ] Nachweise für Homeoffice / häusliches Arbeitszimmer\n- [ ] Kfz-Nachweise (Kilometerlog, Versicherung, Kfz-Steuer)\n- [ ] Abschreibungsnachweise für alle beweglichen und unbeweglichen Wirtschaftsgüter\n\n---\n\n## 8. Abschlüsse und Übergaben\n\n- [ ] Einnahmen-Überschuss-Rechnung (EÜR) erstellt\n- [ ] USt-Jahreserklärung erstellt\n- [ ] Einkommensteuererklärung erstellt\n- [ ] Alle Belege digital archiviert (mindestens 10 Jahre)\n- [ ] Steuerberater / Buchhalter informiert\n- [ ] Fristen kontrolliert (z. B. USt-Jahreserklärung: 31. Juli)\n- [ ] Steuerbescheide geprüft und ggf. Einspruch eingelegt\n\n---\n\n## 9. Hinweise\n\n> **Aufbewahrungsfrist:** Alle Belege sind mindestens **10 Jahre** aufzubewahren.\n> **Fristen:** Die USt-Jahreserklärung ist in der Regel bis zum **31. Juli** des Folgejahres abzugeben.\n> **EÜR-Frist:** Die Einkommensteuererklärung ist in der Regel bis zum **31. Mai** des Folgejahres abzugeben (ggf. Verlängerung möglich).\n\n---\n\n**Erstellt von:** ___________________________\n**Geprüft von:** ___________________________\n**Datum:** ___________________________\n",
+        "file_name": "Checkliste Jahresabschluss Einzelunternehmer",
+        "output_format": "pdf",
+        "title": "Checkliste Jahresabschluss-Unterlagen – Einzelunternehmer"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 21.5,
+      "error": ""
+    },
+    {
+      "id": "c04",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Merkblatt: Aufbewahrungsfristen für Belege\n\n## Überblick\nIn Deutschland gelten für Belege und Unterlagen gesetzliche Aufbewahrungsfristen. Diese sind in § 147 Abgabenordnung (AO) geregelt.\n\n---\n\n## Gesetzliche Aufbewahrungsfristen\n\n| Dokument / Beleg | Aufbewahrungsfrist |\n|---|---|\n| Handelsbücher (z. B. Hauptbuch, Journal) | 10 Jahre |\n| Inventare | 10 Jahre |\n| Jahresabschlüsse | 10 Jahre |\n| Laufende Korrespondenz (geschäftlich) | 10 Jahre |\n| Belege zu den Büchern (z. B. Rechnungen, Lieferscheine, Kassenbelege) | 10 Jahre |\n| Reisekostenabrechnungen | 10 Jahre |\n| Lohnunterlagen | 6 Jahre |\n| Unterlagen zur Umsatzsteuer (z. B. USt-Voranmeldungen) | 10 Jahre |\n| Unterlagen zur Einkommensteuer (z. B. Steuererklärungen) | 4 Jahre |\n| Grundstücksbelege | 30 Jahre |\n\n---\n\n## Wichtige Hinweise\n\n- **Fristbeginn:** Die Frist beginnt in der Regel am **Ende des Kalenderjahres**, in dem das Dokument erstellt wurde oder in dem der Vorgang abgeschlossen wurde.\n- **Beispiel:** Eine Rechnung vom 15. März 2024 muss bis zum **31.12.2034** aufbewahrt werden.\n- **Vereinfachung:** Viele Unternehmen wenden pauschal **10 Jahre** an, um sicherzugehen.\n- **Steuerliche Verlängerung:** Bei Steuerhinterziehung oder -verkürzung können die Fristen auf **10 Jahre** verlängert werden.\n- **Aufbewahrungsort:** Belege müssen in der **Bundesrepublik Deutschland** aufbewahrt werden.\n\n---\n\n## Digitale Aufbewahrung\n- Digitale Belege müssen **unveränderbar** und **lesbar** aufbewahrt werden.\n- Es gelten die Anforderungen des **GoBD** (Grundsätze zur ordnungsmäßigen Führung und Aufbewahrung von Büchern, Aufzeichnungen und Unterlagen in elektronischer Form).\n- Eine regelmäßige **Sicherung** der Daten ist erforderlich.\n\n---\n\n## Tipps für die Praxis\n- ✅ Belege systematisch nach **Jahr und Art** ordnen.\n- ✅ Eine **Aufbewahrungsfrist-Liste** im Unternehmen führen.\n- ✅ Bei Unsicherheit **10 Jahre** annehmen.\n- ✅ Bei steuerlichen Vorgängen die Fristen **dokumentieren**.\n- ❌ Belege **nicht vor Ablauf** der Frist vernichten.\n\n---\n\n## Haftung\nDie Vernichtung von Belegen vor Ablauf der Frist kann zu **Steuerhinterziehung** oder **Ordnungswidrigkeiten** führen. Im Zweifel immer **konservativ** vorgehen.\n\n---\n\n*Hinweis: Dieses Merkblatt dient der Information und ersetzt keine individuelle steuerliche Beratung. Bei Fragen konsultieren Sie Ihren Steuerberater.*",
+        "file_name": "Merkblatt_Aufbewahrungsfristen",
+        "output_format": "pdf",
+        "title": "Merkblatt: Aufbewahrungsfristen für Belege"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 14.7,
+      "error": ""
+    },
+    {
+      "id": "c04",
+      "run": 2,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Merkblatt: Aufbewahrungsfristen für Belege\n\n**Wichtig:** Aufbewahrungsfristen sind gesetzlich geregelt und müssen in jedem Unternehmen eingehalten werden. Die unten genannten Fristen gelten in Deutschland gemäß dem Handelsgesetzbuch (HGB) und der Abgabenordnung (AO).\n\n---\n\n## 1. Regelmäßige Aufbewahrungsfrist\n\n**10 Jahre**\n\nGilt für:\n- Handelsbücher (z. B. Hauptbuch, Tages-/Jahreskonto)\n- Inventare\n- Jahresabschlüsse\n- Buchungsbelege (Rechnungen, Lieferscheine)\n- Kassenbelege\n- Kontenpläne\n- Erläuterungen und Unterlagen zum Jahresabschluss\n\n---\n\n## 2. Kurze Aufbewahrungsfrist\n\n**6 Jahre**\n\nGilt für:\n- Rechnungen und ähnliche Belege (z. B. Ausgangsrechnungen, Gutschriften)\n- Korrespondenz (Geschäftsbriefe, E-Mails, die geschäftlich relevant sind)\n- Belege, die zur steuerlichen Erfassung dienen\n\n---\n\n## 3. Sonderfälle\n\n| Beleg / Dokument | Frist |\n|---|---|\n| Belege im Zusammenhang mit Immobilien | 10 Jahre |\n| Belege im Zusammenhang mit Wertpapieren | 10 Jahre |\n| Unterlagen zur steuerlichen Erfassung (Einnahmen-Überschuss-Rechnung) | 6 Jahre |\n| Kassenbelege (bei Kassensystemen) | 10 Jahre |\n| E-Mails (geschäftlich relevant) | 6 Jahre |\n\n---\n\n## 4. Wichtige Hinweise\n\n- **Beginn der Frist:** Die Aufbewahrungsfrist beginnt mit dem **Schluss des Kalenderjahres**, in dem der Beleg erstellt, empfangen oder die Steuererklärung abgegeben wurde.\n- **Elektronische Aufbewahrung:** Belege dürfen auch in digitaler Form aufbewahrt werden, sofern die **Lesbarkeit, Vollständigkeit und Unveränderbarkeit** gewährleistet ist (z. B. durch ein zertifiziertes Kassensystem oder ein revisionssicheres Archiv).\n- **Vermerk:** Es ist ratsam, in der Buchhaltung eine **Aufbewahrungsfrist-Markierung** vorzunehmen, um bei der Löschung sicherzustellen, dass die Frist abgelaufen ist.\n- **Steuerberater / Wirtschaftsprüfer:** Bei Unsicherheiten sollten Steuerberater oder Wirtschaftsprüfer konsultiert werden.\n\n---\n\n## 5. Zusammenfassung\n\n| Frist | Beispiele |\n|---|---|\n| **10 Jahre** | Handelsbücher, Jahresabschlüsse, Kassenbelege, Immobilienbelege |\n| **6 Jahre** | Rechnungen, Korrespondenz, E-Mails |\n\n---\n\n*Hinweis: Dieses Merkblatt dient der allgemeinen Orientierung und ersetzt keine individuelle Rechtsberatung. Es können Sonderregelungen gelten.*",
+        "file_name": "Merkblatt_Aufbewahrungsfristen",
+        "output_format": "pdf",
+        "title": "Merkblatt: Aufbewahrungsfristen für Belege"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 14.1,
+      "error": ""
+    },
+    {
+      "id": "c04",
+      "run": 3,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Merkblatt: Aufbewahrungsfristen für Belege (GoBD / HGB / AO)\n\n## 1. Grundsatz\nBelege, die für die Besteuerung, die Buchführung oder die Rechnungslegung relevant sind, müssen grundsätzlich **10 Jahre** aufbewahrt werden. In bestimmten Fällen gilt eine verkürzte Frist von **6 Jahren**.\n\n## 2. Übersicht der wichtigsten Fristen\n\n| Beleg / Dokument | Aufbewahrungsfrist | Rechtsgrundlage |\n|---|---|---|\n| Buchungsbelege (Rechnungen, Lieferscheine, Belege zur Buchführung) | **10 Jahre** | § 147 Abs. 1 HGB, § 147 Abs. 3 AO |\n| Handelsbücher / Inventare | **10 Jahre** | § 147 Abs. 1 HGB |\n| Buchungsbelege für nicht buchführungspflichtige Aufzeichnungen | **6 Jahre** | § 147 Abs. 3 AO |\n| Korrespondenz in steuerlichen Angelegenheiten | **6 Jahre** | § 147 Abs. 3 AO |\n| Belege für Lohnabrechnungen / Sozialversicherung | **6 Jahre** | § 147 Abs. 3 AO |\n| Rechnungen, die nicht in die Buchführung eingehen (z. B. Kleinbelege) | **6 Jahre** | § 147 Abs. 3 AO |\n| Belege im Zusammenhang mit Grundstücken / Immobilien | **30 Jahre** | § 147 Abs. 1 HGB |\n| Belege bei Kapitalgesellschaften (z. B. Gesellschafterbeschlüsse) | **10 Jahre** | § 147 Abs. 1 HGB |\n\n## 3. Wichtige Hinweise\n\n- **Berechnung der Frist:** Die Aufbewahrungsfrist beginnt mit dem **Schlusstag des Kalenderjahres**, in dem der Beleg erstellt, empfangen oder übermittelt wurde.\n- **Belegarten:** Darunter fallen z. B. Rechnungen, Lieferscheine, Zahlungsnachweise, Kontoauszüge, Korrespondenz, Lohnunterlagen, Kassenbelege, Reisekostenabrechnungen, Verträge und Beschlüsse.\n- **Elektronische Aufbewahrung:** Belege dürfen elektronisch aufbewahrt werden, wenn die **GoBD** (Grundsätze zur ordnungsmäßigen Führung und Aufbewahrung von Büchern, Aufzeichnungen und Unterlagen in elektronischer Form) eingehalten werden.\n- **Lesbarkeit:** Belege müssen während der gesamten Frist **lesbar und verfügbar** sein.\n- **Vollständigkeit:** Jeder Beleg muss eindeutig einer Buchung oder einem Geschäftsvorfall zugeordnet werden können.\n- **Löschung:** Belege dürfen erst nach Ablauf der gesetzlichen Frist gelöscht werden. Eine vorzeitige Zerstörung kann zu Bußgeldern und Nachforderungen führen.\n\n## 4. Beispiel\n\n| Ereignis | Fristbeginn | Fristende |\n|---|---|---|\n| Rechnung vom 15.03.2024 | 31.12.2024 | 31.12.2034 |\n| Lohnabrechnung Januar 2024 | 31.12.2024 | 31.12.2030 |\n| Kaufvertrag für Grundstück 2023 | 31.12.2023 | 31.12.2053 |\n\n## 5. Zusammenfassung\n\n- **10 Jahre:** Buchungsbelege, Handelsbücher, Inventare, Belege für Kapitalgesellschaften.\n- **6 Jahre:** Nicht-buchführungspflichtige Belege, Korrespondenz, Lohnunterlagen.\n- **30 Jahre:** Belege im Zusammenhang mit Grundstücken.\n- **Fristbeginn:** Schluss des Kalenderjahres, in dem der Beleg entstand.\n- **Elektronische Aufbewahrung:** Nur unter Einhaltung der GoBD.\n\n---\n*Hinweis: Dieses Merkblatt dient der Orientierung und ersetzt keine individuelle steuerliche oder rechtliche Beratung.*",
+        "file_name": "Merkblatt_Aufbewahrungsfristen_Belege",
+        "output_format": "pdf",
+        "title": "Merkblatt: Aufbewahrungsfristen für Belege"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 17.1,
+      "error": ""
+    },
+    {
+      "id": "s01",
+      "run": 1,
+      "expected": "describe_spreadsheet",
+      "got": "describe_spreadsheet",
+      "steps": [
+        "describe_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.2,
+      "error": ""
+    },
+    {
+      "id": "s01",
+      "run": 2,
+      "expected": "describe_spreadsheet",
+      "got": "describe_spreadsheet",
+      "steps": [
+        "describe_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.6,
+      "error": ""
+    },
+    {
+      "id": "s01",
+      "run": 3,
+      "expected": "describe_spreadsheet",
+      "got": "describe_spreadsheet",
+      "steps": [
+        "describe_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "buchungen_q1.xlsx"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.5,
+      "error": ""
+    },
+    {
+      "id": "s02",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "describe_spreadsheet",
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "group_by": "Konto",
+        "operation": "sum",
+        "value_column": "Betrag"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 2.4,
+      "error": ""
+    },
+    {
+      "id": "s02",
+      "run": 2,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "describe_spreadsheet",
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "group_by": "Konto",
+        "operation": "sum",
+        "value_column": "Betrag"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.6,
+      "error": ""
+    },
+    {
+      "id": "s02",
+      "run": 3,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "group_by": "Konto",
+        "operation": "sum",
+        "value_column": "Betrag"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "s03",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "umsaetze.csv",
+        "filter_column": "Buchungstext",
+        "filter_value": "Erlöse",
+        "operation": "count"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.6,
+      "error": ""
+    },
+    {
+      "id": "s03",
+      "run": 2,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "umsaetze.csv",
+        "filter_column": "Buchungstext",
+        "filter_value": "Erlöse",
+        "operation": "count"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.1,
+      "error": ""
+    },
+    {
+      "id": "s03",
+      "run": 3,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "umsaetze.csv",
+        "filter_column": "Buchungstext",
+        "filter_value": "Erlöse",
+        "operation": "count"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.1,
+      "error": ""
+    },
+    {
+      "id": "s04",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "filter_column": "Konto",
+        "filter_value": "4400",
+        "operation": "avg",
+        "value_column": "Betrag"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.6,
+      "error": ""
+    },
+    {
+      "id": "s04",
+      "run": 2,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "describe_spreadsheet",
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "umsaetze.csv",
+        "filter_column": "Konto",
+        "filter_value": "4400",
+        "operation": "avg",
+        "value_column": "Betrag"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 2.6,
+      "error": ""
+    },
+    {
+      "id": "s04",
+      "run": 3,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "filter_column": "Konto",
+        "filter_value": "4400",
+        "operation": "avg",
+        "value_column": "Betrag"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.1,
+      "error": ""
+    },
+    {
+      "id": "n01",
+      "run": 1,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.4,
+      "error": ""
+    },
+    {
+      "id": "n01",
+      "run": 2,
+      "expected": "list_workflows",
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "tool_fehlt",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 4.0,
+      "error": ""
+    },
+    {
+      "id": "n01",
+      "run": 3,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.6,
+      "error": ""
+    },
+    {
+      "id": "n02",
+      "run": 1,
+      "expected": "run_workflow",
+      "got": "run_workflow",
+      "steps": [
+        "list_workflows",
+        "run_workflow"
+      ],
+      "verdict": "ok",
+      "args": {
+        "parameters_json": "{\"mandant\": \"M-100\"}",
+        "workflow": "echo"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.4,
+      "error": ""
+    },
+    {
+      "id": "n02",
+      "run": 2,
+      "expected": "run_workflow",
+      "got": "run_workflow",
+      "steps": [
+        "list_workflows",
+        "run_workflow"
+      ],
+      "verdict": "ok",
+      "args": {
+        "parameters_json": "{\"mandant\": \"M-100\"}",
+        "workflow": "echo"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.4,
+      "error": ""
+    },
+    {
+      "id": "n02",
+      "run": 3,
+      "expected": "run_workflow",
+      "got": "run_workflow",
+      "steps": [
+        "run_workflow"
+      ],
+      "verdict": "ok",
+      "args": {
+        "parameters_json": "{\"mandant\": \"M-100\"}",
+        "workflow": "echo"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "n03",
+      "run": 1,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "n03",
+      "run": 2,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.7,
+      "error": ""
+    },
+    {
+      "id": "n03",
+      "run": 3,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.6,
+      "error": ""
+    },
+    {
+      "id": "o01",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "bescheid_scan.pdf"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.7,
+      "error": ""
+    },
+    {
+      "id": "o01",
+      "run": 2,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "bescheid_scan.pdf"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.5,
+      "error": ""
+    },
+    {
+      "id": "o01",
+      "run": 3,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "bescheid_scan.pdf"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.5,
+      "error": ""
+    },
+    {
+      "id": "o02",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "beleg.jpg"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.0,
+      "error": ""
+    },
+    {
+      "id": "o02",
+      "run": 2,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "beleg.jpg"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "o02",
+      "run": 3,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "o03",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "altakte.pdf"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.7,
+      "error": ""
+    },
+    {
+      "id": "o03",
+      "run": 2,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "altakte.pdf"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.6,
+      "error": ""
+    },
+    {
+      "id": "o03",
+      "run": 3,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "altakte.pdf"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.5,
+      "error": ""
+    },
+    {
+      "id": "x01",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 20.9,
+      "error": ""
+    },
+    {
+      "id": "x01",
+      "run": 2,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 18.1,
+      "error": ""
+    },
+    {
+      "id": "x01",
+      "run": 3,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 20.8,
+      "error": ""
+    },
+    {
+      "id": "x02",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 4.0,
+      "error": ""
+    },
+    {
+      "id": "x02",
+      "run": 2,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 4.1,
+      "error": ""
+    },
+    {
+      "id": "x02",
+      "run": 3,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 5.2,
+      "error": ""
+    },
+    {
+      "id": "x03",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 4.1,
+      "error": ""
+    },
+    {
+      "id": "x03",
+      "run": 2,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 5.6,
+      "error": ""
+    },
+    {
+      "id": "x03",
+      "run": 3,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 6.0,
+      "error": ""
+    },
+    {
+      "id": "x04",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.7,
+      "error": ""
+    },
+    {
+      "id": "x04",
+      "run": 2,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.9,
+      "error": ""
+    },
+    {
+      "id": "x04",
+      "run": 3,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.3,
+      "error": ""
+    },
+    {
+      "id": "x05",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 2.4,
+      "error": ""
+    },
+    {
+      "id": "x05",
+      "run": 2,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.8,
+      "error": ""
+    },
+    {
+      "id": "x05",
+      "run": 3,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.3,
+      "error": ""
+    }
+  ]
+}

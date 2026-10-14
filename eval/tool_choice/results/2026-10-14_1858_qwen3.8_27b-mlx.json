@@ -1,0 +1,414 @@
+{
+  "model": "qwen3.8:27b-mlx",
+  "temperature": 0.0,
+  "runs": 1,
+  "tools": [
+    "translate_document",
+    "create_document",
+    "aggregate_spreadsheet",
+    "describe_spreadsheet",
+    "list_workflows",
+    "run_workflow",
+    "ocr_document"
+  ],
+  "summary": {
+    "ok": 22,
+    "tool_falsch": 0,
+    "tool_fehlt": 0,
+    "tool_unnoetig": 0,
+    "fehler": 0,
+    "accuracy": 1.0,
+    "avg_seconds": 5.3,
+    "unstable_cases": [],
+    "args_checked": 12,
+    "args_ok": 12
+  },
+  "rows": [
+    {
+      "id": "t01",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "vertrag.pdf",
+        "output_format": "pdf",
+        "target_language": "Englisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.1,
+      "error": ""
+    },
+    {
+      "id": "t02",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "bilanz_2025.docx",
+        "output_format": "docx",
+        "target_language": "Französisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 8.0,
+      "error": ""
+    },
+    {
+      "id": "t03",
+      "run": 1,
+      "expected": "translate_document",
+      "got": "translate_document",
+      "steps": [
+        "translate_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "schreiben_finanzamt.pdf",
+        "output_format": "pdf",
+        "target_language": "Englisch"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.3,
+      "error": ""
+    },
+    {
+      "id": "c01",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Musterfirma Beispiel GmbH\n\n**Musterfirma Beispiel GmbH**\nMusterstraße 1\n12345 Musterstadt\nTelefon: 0123 / 456789\nE-Mail: info@musterfirma.de\n\n---\n\n**An das**\nFinanzamt Musterstadt\nMusterweg 10\n12345 Musterstadt\n\n---\n\nMusterstadt, den [Datum]\n\n## Betreff: Antrag auf Fristverlängerung zur Abgabe der Einkommensteuererklärung\n\nSehr geehrte Damen und Herren,\n\nhiermit beantrage ich im Namen der **Musterfirma Beispiel GmbH** eine Fristverlängerung zur Abgabe der Einkommensteuererklärung für das Veranlagungsjahr [Jahr].\n\n### Begründung\n\nDie fristgerechte Abgabe der Steuererklärung ist derzeit nicht möglich, da [Begründung, z. B. „die erforderlichen Unterlagen noch nicht vollständig vorliegen“ / „der Steuerberater aufgrund eines hohen Arbeitsaufkommens die Bearbeitung nicht fristgerecht abschließen kann“].\n\nIch bitte Sie daher, die Abgabefrist bis zum [gewünschte neue Frist, z. B. 31.12.2025] zu verlängern.\n\n### Angaben zur Person / zum Unternehmen\n\n- **Name / Firma:** Musterfirma Beispiel GmbH\n- **Steuer-Nr.:** [Steuer-Nr.]\n- **Finanzamt:** Musterstadt\n- **Veranlagungsjahr:** [Jahr]\n\n### Anlagen\n\n- [ggf. Nachweis, z. B. Bestätigung des Steuerberaters]\n\n---\n\nIch bitte um eine kurze Bestätigung des Antrags und stehe für Rückfragen gerne zur Verfügung.\n\nMit freundlichen Grüßen\n\n\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\n[Name des Vertreters]\nGeschäftsführer / Geschäftsführerin\nMusterfirma Beispiel GmbH\n",
+        "file_name": "Anschreiben Finanzamt Fristverlängerung",
+        "output_format": "docx",
+        "title": "Anschreiben an das Finanzamt – Fristverlängerung"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 16.0,
+      "error": ""
+    },
+    {
+      "id": "c02",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Kostenübersicht\n\n| Position | Betrag (€) |\n|---|---|\n| Honorar | 1.200 |\n| Auslagen | 80 |\n| Fahrtkosten | 45 |\n| **Gesamt** | **1.325** |",
+        "file_name": "Kostenuebersicht",
+        "output_format": "xlsx",
+        "title": "Kostenübersicht"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 2.1,
+      "error": ""
+    },
+    {
+      "id": "c03",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Checkliste: Jahresabschluss-Unterlagen für Einzelunternehmer\n\nDiese Checkliste unterstützt Sie dabei, alle relevanten Unterlagen für den Jahresabschluss Ihres Einzelunternehmens vollständig und fristgerecht zusammenzustellen.\n\n---\n\n## 1. Allgemeine Unterlagen\n\n- [ ] Steuerliche Identifikationsnummer (Steuernummer / USt-IdNr.)\n- [ ] Gewerbeanmeldung / Gewerbeschein\n- [ ] Handelsregisterauszug (falls vorhanden)\n- [ ] Aktuelle Kontodaten (Bankverbindung)\n- [ ] Vollmacht für den Steuerberater (falls vorhanden)\n\n---\n\n## 2. Einnahmen und Ausgaben\n\n- [ ] Alle Einnahmebelege (Rechnungen, Quittungen, Überweisungsbelege)\n- [ ] Alle Ausgabebelege (Rechnungen, Lieferscheine, Quittungen)\n- [ ] Kassenbuch / Kassenbelege (bei Barzahlungen)\n- [ ] Bankauszüge für das gesamte Geschäftsjahr\n- [ ] Umsatzsteuervoranmeldungen (UStVA) des laufenden Jahres\n- [ ] Gutschriften und Stornierungen\n\n---\n\n## 3. Einnahmen nach Art\n\n- [ ] Umsatznachweise / Rechnungen an Kunden\n- [ ] Mieteinnahmen (falls vorhanden)\n- [ ] Zinseinnahmen (z. B. aus Geschäftskonto)\n- [ ] Sonstige Einnahmen (z. B. Zuschüsse, Prämien)\n\n---\n\n## 4. Ausgaben nach Art\n\n- [ ] Wareneinkauf / Materialkosten\n- [ ] Personalkosten (Löhne, Gehälter, Sozialversicherungen)\n- [ ] Miete / Pacht / Nebenkosten\n- [ ] Versicherungen (Betriebshaftpflicht, Kfz, etc.)\n- [ ] Werbung / Marketing / Marketingkosten\n- [ ] Reisekosten / Verpflegungsmehraufwendungen\n- [ ] Büromaterial / Bürobedarf\n- [ ] IT-Kosten (Software, Hardware, Internet, Telefon)\n- [ ] Bankgebühren / Kontoführungsgebühren\n- [ ] Steuerberaterhonorar / Buchhaltungskosten\n- [ ] Abschreibungen (Anlageverzeichnis)\n- [ ] Sonstige Betriebsausgaben\n\n---\n\n## 5. Anlagevermögen und Abschreibungen\n\n- [ ] Anlageverzeichnis (Einzelnachweis aller Wirtschaftsgüter)\n- [ ] Kaufbelege für neue Anschaffungen\n- [ ] Verkaufsnachweise für abgegangene Wirtschaftsgüter\n- [ ] Abschreibungsnachweise (lineare / degressive)\n- [ ] Restbuchwerte zum Jahresende\n\n---\n\n## 6. Personal und Sozialversicherung\n\n- [ ] Lohnabrechnungen / Gehaltsabrechnungen\n- [ ] Lohnsteueranmeldungen (ELStAM)\n- [ ] Sozialversicherungsbeiträge (Arbeitgeberanteil)\n- [ ] Krankenkassenmeldungen\n- [ ] Arbeitsverträge / Auftragsverträge\n- [ ] Urlaubs- und Krankheitsnachweise\n\n---\n\n## 7. Umsatzsteuer\n\n- [ ] Umsatzsteuervoranmeldungen (UStVA) – alle Quartale\n- [ ] Umsatzsteuervoranmeldung (Jahresmeldung)\n- [ ] Eingangsrechnungen mit ausgewiesener USt\n- [ ] USt-Abrechnungen / USt-Buch\n- [ ] Gutschriften und Stornierungen\n\n---\n\n## 8. Einkommensteuer\n\n- [ ] Einkommensteuererklärung (Vordruck ESt 1 A)\n- [ ] Anlage G (Einkünfte aus Gewerbebetrieb)\n- [ ] Anlage S (Selbständige Arbeit) – falls zutreffend\n- [ ] Anlage EÜR (Einnahmen-Überschuss-Rechnung)\n- [ ] Anlage A (Vermietung und Verpachtung) – falls zutreffend\n- [ ] Anlage KAP (Kapitalvermögen) – falls zutreffend\n- [ ] Anlage Vorsorgeaufwand\n- [ ] Anlage Sonderausgaben\n\n---\n\n## 9. Sonstige Unterlagen\n\n- [ ] Kassensturz / Kassenbericht zum Jahresende\n- [ ] Inventarliste / Bestandsaufnahme\n- [ ] Verträge (Mietverträge, Leasingverträge, etc.)\n- [ ] Kfz-Belege (falls betrieblich genutzt)\n- [ ] Privatanteile / Privatnutzung (z. B. Kfz, Internet)\n- [ ] Geschenke / Bewirtungsnachweise\n- [ ] Spendenquittungen\n- [ ] Versicherungsbelege\n\n---\n\n## 10. Fristen und Termine\n\n- [ ] **Umsatzsteuervoranmeldung:** 10. Tag des Monats nach Ablauf des Voranmeldungszeitraums\n- [ ] **Einkommensteuererklärung:** 31. Juli des Folgejahres (mit Steuerberater: 31. Dezember)\n- [ ] **Gewerbesteuererklärung:** 31. Mai des Folgejahres\n- [ ] **Umsatzsteuer-Jahreserklärung:** 31. Juli des Folgejahres\n- [ ] **Kassenbuch / EÜR:** Vor der Abgabe der Steuererklärung fertigstellen\n\n---\n\n## 11. Hinweise\n\n- Bewahren Sie alle Belege **mindestens 10 Jahre** auf (Steuerliche Aufbewahrungsfristen).\n- Prüfen Sie, ob **Privatanteile** korrekt getrennt wurden.\n- Achten Sie auf **Fristen** und ggf. **Fristverlängerungen** beim Finanzamt.\n- Bei Unsicherheiten: **Steuerberater** oder **Finanzamt** kontaktieren.\n\n---\n\n*Diese Checkliste dient als Orientierungshilfe und ersetzt keine steuerliche Beratung. Bitte passen Sie die Punkte an Ihre individuelle Situation an.*",
+        "file_name": "Checkliste Jahresabschluss Einzelunternehmer",
+        "output_format": "pdf",
+        "title": "Checkliste Jahresabschluss-Unterlagen für Einzelunternehmer"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 26.8,
+      "error": ""
+    },
+    {
+      "id": "c04",
+      "run": 1,
+      "expected": "create_document",
+      "got": "create_document",
+      "steps": [
+        "create_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "content": "# Merkblatt: Aufbewahrungsfristen für Belege\n\n## 1. Überblick\n\nIn Deutschland sind Belege und Unterlagen nach dem **Handels- und Gesellschaftsrecht (HGB)** sowie dem **Abgabenordnung (AO)** aufzubewahren. Die Fristen beginnen jeweils mit dem **31. Dezember des Jahres**, in dem der Beleg entstanden ist.\n\n---\n\n## 2. Wichtige Fristen im Überblick\n\n| Beleg / Dokument | Aufbewahrungsfrist | Rechtsgrundlage |\n|---|---|---|\n| **Buchungsbelege** (Rechnungen, Lieferscheine, Kontoauszüge) | **10 Jahre** | § 147 Abs. 1 AO |\n| **Jahresabschlüsse, Eröffnungsbilanzen, Inventare** | **10 Jahre** | § 147 Abs. 1 AO |\n| **Korrespondenz im Handels- und Geschäftsverkehr** | **10 Jahre** | § 257 HGB |\n| **Steuerliche Unterlagen** (z. B. Steuererklärungen, Bescheide) | **10 Jahre** | § 147 Abs. 1 AO |\n| **Eingangs- und Ausgangsrechnungen** | **10 Jahre** | § 147 Abs. 1 AO |\n| **Kassenbelege** | **10 Jahre** | § 147 Abs. 1 AO |\n| **Vereins- und Verbandsunterlagen** | **10 Jahre** | § 147 Abs. 1 AO |\n| **Personenbezogene Daten (z. B. Lohnunterlagen)** | **6 Jahre** (ab dem Jahr der Beendigung des Arbeitsverhältnisses) | § 147 Abs. 3 AO |\n| **Einfache Korrespondenz (nicht geschäftlich)** | **3 Jahre** | § 257 HGB |\n| **E-Mails (geschäftlich)** | **10 Jahre** | § 257 HGB |\n\n---\n\n## 3. Wichtige Hinweise\n\n- **Fristbeginn:** Die Frist beginnt am **31. Dezember** des Jahres, in dem der Beleg erstellt oder empfangen wurde.\n- **Verlängerung:** Bei **Steuerhinterziehung** oder **Vorsatz** kann die Frist auf **10 Jahre** verlängert werden.\n- **Elektronische Aufbewahrung:** Belege dürfen auch **elektronisch** aufbewahrt werden, sofern die **Lesbarkeit** und **Unveränderbarkeit** gewährleistet ist (z. B. PDF/A).\n- **Löschverbot:** Belege dürfen **nicht** vor Ablauf der Frist gelöscht oder vernichtet werden.\n- **Archivierung:** Es empfiehlt sich, Belege **sortiert und nachvollziehbar** abzuheben (z. B. nach Jahr und Kategorie).\n\n---\n\n## 4. Praktische Tipps\n\n1. **Jahresende prüfen:** Am 31.12. jedes Jahres prüfen, welche Belege aus dem Jahr vor 10 Jahren gelöscht werden dürfen.\n2. **Digitalisierung:** Belege scannen und als **PDF/A** speichern, um Platz zu sparen.\n3. **Metadaten:** Bei digitalen Belegen **Erstellungsdatum, Absender und Empfänger** als Metadaten speichern.\n4. **Backup:** Regelmäßig **Backups** der digitalen Belege erstellen.\n5. **Beratung:** Bei Unsicherheiten **Steuerberater** oder **Rechtsanwalt** konsultieren.\n\n---\n\n## 5. Rechtsgrundlagen\n\n- **§ 147 Abgabenordnung (AO)** – Aufbewahrung von Unterlagen\n- **§ 257 Handelsgesetzbuch (HGB)** – Aufbewahrung von Büchern und Belegen\n- **§ 146 AO** – Aufbewahrungsort\n\n---\n\n*Stand: 2024 – Dieses Merkblatt dient der allgemeinen Information und ersetzt keine individuelle Rechts- oder Steuerberatung.*",
+        "file_name": "Merkblatt_Aufbewahrungsfristen_Belege",
+        "output_format": "pdf",
+        "title": "Merkblatt: Aufbewahrungsfristen für Belege"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 17.6,
+      "error": ""
+    },
+    {
+      "id": "s01",
+      "run": 1,
+      "expected": "describe_spreadsheet",
+      "got": "describe_spreadsheet",
+      "steps": [
+        "describe_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.0,
+      "error": ""
+    },
+    {
+      "id": "s02",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "describe_spreadsheet",
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "group_by": "Konto",
+        "operation": "sum",
+        "value_column": "Betrag"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 2.4,
+      "error": ""
+    },
+    {
+      "id": "s03",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "filter_column": "Buchungstext",
+        "filter_value": "Erlöse",
+        "operation": "count"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.5,
+      "error": ""
+    },
+    {
+      "id": "s04",
+      "run": 1,
+      "expected": "aggregate_spreadsheet",
+      "got": "aggregate_spreadsheet",
+      "steps": [
+        "aggregate_spreadsheet"
+      ],
+      "verdict": "ok",
+      "args": {
+        "filter_column": "Konto",
+        "filter_value": "4400",
+        "operation": "avg",
+        "value_column": "Betrag"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.7,
+      "error": ""
+    },
+    {
+      "id": "n01",
+      "run": 1,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "n02",
+      "run": 1,
+      "expected": "run_workflow",
+      "got": "run_workflow",
+      "steps": [
+        "list_workflows",
+        "run_workflow"
+      ],
+      "verdict": "ok",
+      "args": {
+        "parameters_json": "{\"mandant\": \"M-100\"}",
+        "workflow": "echo"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.4,
+      "error": ""
+    },
+    {
+      "id": "n03",
+      "run": 1,
+      "expected": "list_workflows",
+      "got": "list_workflows",
+      "steps": [
+        "list_workflows"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.9,
+      "error": ""
+    },
+    {
+      "id": "o01",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "bescheid_scan.pdf"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.8,
+      "error": ""
+    },
+    {
+      "id": "o02",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "beleg.jpg"
+      },
+      "arg_verdict": "ok",
+      "arg_problems": [],
+      "seconds": 1.2,
+      "error": ""
+    },
+    {
+      "id": "o03",
+      "run": 1,
+      "expected": "ocr_document",
+      "got": "ocr_document",
+      "steps": [
+        "ocr_document"
+      ],
+      "verdict": "ok",
+      "args": {
+        "file_name": "altakte.pdf"
+      },
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 0.7,
+      "error": ""
+    },
+    {
+      "id": "x01",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 18.5,
+      "error": ""
+    },
+    {
+      "id": "x02",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 4.4,
+      "error": ""
+    },
+    {
+      "id": "x03",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 5.9,
+      "error": ""
+    },
+    {
+      "id": "x04",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.7,
+      "error": ""
+    },
+    {
+      "id": "x05",
+      "run": 1,
+      "expected": null,
+      "got": null,
+      "steps": [
+        "-"
+      ],
+      "verdict": "ok",
+      "args": {},
+      "arg_verdict": "",
+      "arg_problems": [],
+      "seconds": 1.6,
+      "error": ""
+    }
+  ]
+}
