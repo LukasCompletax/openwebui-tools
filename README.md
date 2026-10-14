@@ -14,7 +14,8 @@ Zerlegen, Rendern und Speichern laufen deterministisch im Werkzeug.
 | `pdf_translate/` | PDF oder DOCX in eine Zielsprache übersetzen, Ergebnis als PDF oder DOCX zum Download | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `create_document/` | Aus Markdown-Text des Modells eine Datei erzeugen: DOCX, PDF, XLSX, MD, TXT, CSV | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `read_table/` | Angehängte XLSX/CSV beschreiben und deterministisch auswerten: Summe, Anzahl, Durchschnitt, Min, Max, gruppiert und gefiltert | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
-| `n8n_trigger/` | Freigegebene n8n-Workflows per Webhook auslösen, Ergebnis zurückgeben | Kern getestet, Installation und n8n-Seite stehen aus |
+| `n8n_trigger/` | Freigegebene n8n-Workflows per Webhook auslösen, Ergebnis zurückgeben | Installiert, Probelauf mit qwen3.8:27b-mlx und n8n erfolgreich |
+| `ocr_scan/` | Gescannte PDF oder Bild per OCR durchsuchbar machen, Text zurückgeben | Kern und Image getestet, Container-Wechsel steht aus |
 
 ## n8n_trigger
 
@@ -66,7 +67,7 @@ Der Webhook bekommt diesen Body:
 }
 ```
 
-Beispielanfrage im Chat: „Welche Automatisierungen gibt es?“ und dann
+Beispielanfrage im Chat: „Welche n8n-Workflows gibt es?“ und dann
 „Starte den Workflow echo mit mandant M-100.“
 
 ### Einstellungen (Valves)
@@ -266,3 +267,75 @@ Fehlerweitergabe und die Seitenobergrenze ab.
 - Fließtext-Ausgabe. Tabellen werden zu Absätzen, Bilder entfallen.
 - Absatzerkennung ist heuristisch. Bei mehrspaltigen Dokumenten kann die Reihenfolge leiden.
 - Qualität der Übersetzung hängt am Modell. Bei Fachbegriffen das Glossar pflegen.
+
+Hinweis: Die Frage „Welche Automatisierungen gibt es?“ landet bei der eingebauten
+Automations-Funktion von Open WebUI (geplante Chat-Aufgaben), nicht bei n8n.
+Deshalb im Chat von Workflows oder n8n sprechen.
+
+## ocr_scan
+
+### Was es tut
+
+Legt mit `ocrmypdf` (Tesseract, Ghostscript) eine Textebene über eine gescannte PDF oder
+ein Bild (PNG, JPG, TIFF) und liefert eine durchsuchbare PDF zum Download sowie den
+erkannten Text als Auszug für das Modell. Seiten, die schon Text haben, bleiben
+unverändert (`--skip-text`); `force=true` erzwingt eine neue Textebene.
+Danach können die anderen Tools weiterarbeiten, etwa `pdf_translate` auf der OCR-PDF.
+
+Das Modell ist an der OCR nicht beteiligt. Das Tool meldet, wenn kaum Text erkannt wurde
+(`low_text_warning`) oder die Datei schon durchsuchbar war (`already_had_text`).
+
+### Voraussetzung: Image mit OCR-Werkzeugen
+
+Das offizielle Open-WebUI-Image hat kein Tesseract. `docker/open-webui-ocr/` enthält
+ein Dockerfile, das auf dem offiziellen Image aufsetzt und `ocrmypdf` plus die
+Sprachpakete Deutsch und Englisch nachinstalliert (rund 200 MB mehr). Die
+Python-Umgebung von Open WebUI bleibt unverändert, das Tool ruft nur die Kommandozeile.
+
+```bash
+docker/open-webui-ocr/build.sh          # Image open-webui-ocr:local bauen
+docker/open-webui-ocr/recreate.sh       # laufenden Container durch das neue Image ersetzen
+docker/open-webui-ocr/rollback.sh       # zurück zum alten Container
+```
+
+`recreate.sh` übernimmt Datenvolume, Port, `host.docker.internal`, Neustartregel und
+alle Umgebungsvariablen (inklusive Secret Key, damit Logins gültig bleiben). Die
+Umgebung wird per Prozess-Substitution durchgereicht, nie in eine Datei geschrieben.
+Der alte Container wird nicht gelöscht, sondern gestoppt und als `open-webui-old`
+behalten. Ausfallzeit: die Startzeit von Open WebUI, etwa eine halbe Minute.
+
+Updates von Open WebUI laufen künftig über `build.sh --pull` und `recreate.sh`
+(vorher `open-webui-old` entfernen), nicht mehr über `docker pull` allein.
+
+### Installation
+
+Tool importieren, Tool-ID `ocr_scan`, dem Modell zuweisen. Ohne OCR-Image antwortet
+das Tool mit einer klaren Meldung statt eines Absturzes.
+
+Beispielanfrage: Scan anhängen und „Mach diesen Scan durchsuchbar.“ oder
+„Was steht in diesem Scan?“
+
+### Einstellungen (Valves)
+
+| Valve | Standard | Bedeutung |
+|---|---|---|
+| `LANGUAGES` | `deu+eng` | Tesseract-Sprachen. Weitere brauchen ein Sprachpaket im Image. |
+| `TIMEOUT_SECONDS` | 600 | Zeitlimit je Datei. |
+| `JOBS` | 4 | Parallele Seiten. |
+| `MAX_PAGES`, `MAX_INPUT_MB` | 100, 50 | Obergrenzen. |
+| `ROTATE_PAGES` | true | Gedrehte Seiten ausrichten. |
+| `DESKEW` | false | Schräge Scans begradigen, langsamer. |
+| `TEXT_PREVIEW_CHARS` | 12000 | Textauszug für das Modell. |
+
+### Tests
+
+```bash
+.venv/bin/python ocr_scan/tests/test_core.py        # Roundtrip nur, wenn ocrmypdf lokal vorhanden
+docker run --rm -v "$PWD:/w:ro" -w /w --entrypoint python open-webui-ocr:local ocr_scan/tests/test_core.py
+```
+
+### Bekannte Grenzen
+
+- OCR-Qualität hängt an Scanauflösung und Schrift. Handschrift wird nicht erkannt.
+- Die OCR-PDF liegt wie jeder Upload in Open WebUI. Produktive Dokumente gehören nach SharePoint.
+- Zeitbedarf grob: wenige Sekunden je Seite auf dem Mac Studio.
