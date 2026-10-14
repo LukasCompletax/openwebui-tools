@@ -13,6 +13,47 @@ Zerlegen, Rendern und Speichern laufen deterministisch im Werkzeug.
 |---|---|---|
 | `pdf_translate/` | PDF oder DOCX in eine Zielsprache übersetzen, Ergebnis als PDF oder DOCX zum Download | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `create_document/` | Aus Markdown-Text des Modells eine Datei erzeugen: DOCX, PDF, XLSX, MD, TXT, CSV | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
+| `read_table/` | Angehängte XLSX/CSV beschreiben und deterministisch auswerten: Summe, Anzahl, Durchschnitt, Min, Max, gruppiert und gefiltert | Kern getestet, Installation steht aus |
+
+## read_table
+
+### Was es tut
+
+Zwei Funktionen für das Modell:
+
+- `describe_spreadsheet`: Blätter, Zeilenzahl, Spalten mit Typ und Kennzahlen
+  (Summe, Min, Max bei Zahlen, Werteliste bei Text), dazu eine Markdown-Vorschau.
+- `aggregate_spreadsheet`: Summe, Anzahl, Durchschnitt, Minimum oder Maximum einer
+  Spalte, optional gruppiert nach einer zweiten Spalte und gefiltert nach einem Wert.
+
+Das Modell rechnet nicht selbst. Alle Zahlen werden als exakte Dezimalzahlen geführt,
+deutsche (`1.234,56 €`) und englische (`1,234.56`) Schreibweisen werden erkannt.
+Spalten lassen sich per Name, Buchstabe (B) oder Nummer ansprechen.
+CSV mit Semikolon, Komma oder Tab, Kodierung UTF-8 oder Windows-1252.
+
+Beispielfragen: „Wie hoch ist die Summe je Konto?“, „Wie viele Buchungen enthalten
+Erlöse?“, „Durchschnittlicher Betrag auf Konto 4400?“
+
+### Installation
+
+Siehe „Installation eines Tools“, Tool-ID `tabelle_lesen`. openpyxl ist im Container vorhanden.
+Zum Ausprobieren liegt `read_table/samples/beispiel_buchungen.xlsx` bereit, Inhalt erfunden.
+
+### Einstellungen (Valves)
+
+| Valve | Standard | Bedeutung |
+|---|---|---|
+| `MAX_ROWS` | 5000 | Datenzeilen je Blatt, die geladen werden. Darüber wird abgeschnitten und gemeldet. |
+| `PREVIEW_ROWS` | 15 | Zeilen in der Vorschau für das Modell. |
+| `MAX_SHEETS` | 10 | Höchstens so viele Blätter beschreiben. |
+| `MAX_GROUPS` | 200 | Höchstens so viele Gruppen zurückgeben. |
+
+### Bekannte Grenzen
+
+- Formeln werden als zuletzt gespeicherter Wert gelesen. Nie berechnete Formeln sind leer.
+- Die Kopfzeile muss die erste nicht leere Zeile sein. Mehrzeilige Köpfe werden nicht erkannt.
+- Gruppierung nach mehreren Spalten gleichzeitig gibt es nicht; dafür zweimal filtern.
+- Zellinhalte gehen an das lokale Modell. Für Mandantendaten gilt weiterhin: kein Cloud-Modell wählen.
 
 ## Installation eines Tools
 
