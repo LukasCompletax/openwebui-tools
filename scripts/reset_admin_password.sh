@@ -17,7 +17,7 @@ if ! docker container inspect "$CONTAINER" >/dev/null 2>&1; then
   exit 1
 fi
 
-docker exec -it -e EMAIL_ARG="$EMAIL_ARG" "$CONTAINER" python - <<'EOF'
+read -r -d '' PY <<'PYEOF' || true
 import getpass, os, sqlite3, sys, time
 
 import bcrypt
@@ -53,4 +53,6 @@ if updated != 1:
 db.execute("update user set updated_at = ? where id = ?", (int(time.time()), user_id))
 db.commit()
 print("Passwort gesetzt. Bestehende Sitzungen bleiben gültig.")
-EOF
+PYEOF
+
+docker exec -it -e EMAIL_ARG="$EMAIL_ARG" "$CONTAINER" python -c "$PY"
