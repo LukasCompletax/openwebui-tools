@@ -1,0 +1,38 @@
+# SearXNG als lokale Metasuche für die Websuche in Open WebUI.
+#
+# Erreichbar nur vom Mac selbst (127.0.0.1:8081) und aus dem Open-WebUI-Container
+# über http://host.docker.internal:8081. Das Geheimnis SEARXNG_SECRET kommt aus
+# der Datei .env neben dieser Compose-Datei; setup.sh legt sie an. .env ist
+# nicht im Repository.
+#
+# Start:   docker compose -f docker/searxng/docker-compose.yml up -d
+# Stopp:   docker compose -f docker/searxng/docker-compose.yml down
+# Update:  docker compose -f docker/searxng/docker-compose.yml pull && ... up -d
+
+services:
+  searxng:
+    image: searxng/searxng:latest
+    container_name: kanzlei-searxng
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8081:8080"
+    volumes:
+      - ./settings.yml:/etc/searxng/settings.yml:ro
+      - searxng-cache:/var/cache/searxng
+    environment:
+      - SEARXNG_BASE_URL=http://localhost:8081/
+      - SEARXNG_SECRET=${SEARXNG_SECRET:?SEARXNG_SECRET fehlt, setup.sh ausfuehren}
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "1"
+
+volumes:
+  searxng-cache:
