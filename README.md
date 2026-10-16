@@ -16,7 +16,7 @@ Zerlegen, Rendern und Speichern laufen deterministisch im Werkzeug.
 | `read_table/` | Angehängte XLSX/CSV beschreiben und deterministisch auswerten: Summe, Anzahl, Durchschnitt, Min, Max, gruppiert und gefiltert | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `n8n_trigger/` | Freigegebene n8n-Workflows per Webhook auslösen, Ergebnis zurückgeben | Installiert, Probelauf mit qwen3.8:27b-mlx und n8n erfolgreich |
 | `ocr_scan/` | Gescannte PDF oder Bild per OCR durchsuchbar machen, Text zurückgeben | Installiert, Container läuft mit OCR-Image, Probelauf erfolgreich |
-| `beratungsvertrag_docx/` | Mandatsvertrag aus der Word-Vorlage der Kanzlei befüllen: Stammdaten, Pauschalen, Anzahlung, Verbraucher-Baustein, erste Honoraranpassung | Gebaut und gegen die Vorlage getestet, Import in Open WebUI steht aus |
+| `beratungsvertrag_docx/` | Mandatsvertrag aus der Word-Vorlage der Kanzlei befüllen: Stammdaten, Pauschalen, Anzahlung, Verbraucher-Baustein, erste Honoraranpassung | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 
 ## n8n_trigger
 
@@ -171,8 +171,9 @@ Trefferzahl bei 3 lassen, mehr verlängert jede Antwort.
 ## Prüflauf zur Tool-Wahl
 
 `eval/tool_choice/` misst, ob das lokale Modell bei typischen Anfragen das richtige Tool
-wählt. Stand 14.10.2026 mit qwen3.8:27b-mlx: 22 von 22 bei Temperatur 0, 65 von 66 bei
-Temperatur 0,7. Nach jeder Änderung an Tool-Beschreibungen wiederholen, Details dort.
+wählt. Stand 16.10.2026 mit qwen3.8:27b-mlx und 8 Werkzeugen: 24 von 25 bei Temperatur 0
+(14.10. mit 7 Werkzeugen: 22 von 22 bei Temperatur 0, 65 von 66 bei Temperatur 0,7).
+Nach jeder Änderung an Tool-Beschreibungen wiederholen, Details dort.
 
 ## Installation eines Tools
 
