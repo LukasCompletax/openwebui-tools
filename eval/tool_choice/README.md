@@ -6,9 +6,10 @@ ob Skills als Prompt-Bausteine mit diesem Modell tragen oder ein größeres Mode
 
 ## Aufbau
 
-- `cases.json`: 22 Fälle, alle Inhalte erfunden. 17 Fälle erwarten ein bestimmtes Tool,
-  5 Fälle erwarten ausdrücklich keines (Fachfrage, Umformulierung, Frist, Zusammenfassung
-  und Zahl aus einem Dokument, dessen Text schon im Kontext liegt).
+- `cases.json`: 25 Fälle, alle Inhalte erfunden. 19 Fälle erwarten ein bestimmtes Tool,
+  6 Fälle erwarten ausdrücklich keines (Fachfrage, Umformulierung, Frist, Zusammenfassung,
+  Zahl aus einem Dokument, dessen Text schon im Kontext liegt, und eine StBVV-Gebührenfrage,
+  die keine Vertragsdatei auslösen darf).
 - `run_eval.py`: holt die Werkzeugdefinitionen live aus Open WebUI (dieselben Specs, die
   Open WebUI dem Modell bei nativem Function Calling übergibt) und schickt jeden Fall direkt
   an Ollama. Kein Tool wird ausgeführt, nur die Wahl wird gewertet.
@@ -17,9 +18,10 @@ ob Skills als Prompt-Bausteine mit diesem Modell tragen oder ein größeres Mode
 - Zweistufig: Fälle, bei denen die Tool-Beschreibung einen Vorbereitungs-Aufruf verlangt
   (`describe_spreadsheet` vor `aggregate_spreadsheet`, `list_workflows` vor `run_workflow`),
   bekommen ein vorgefertigtes Ergebnis zurück; gewertet wird der zweite Aufruf.
-- Parameter: 12 Fälle tragen `expected_args` mit Matchern (`in`, `contains`, `contains_all`,
+- Parameter: 14 Fälle tragen `expected_args` mit Matchern (`in`, `contains`, `contains_all`,
   `regex`, alle ohne Groß/Klein). Geprüft werden Zielsprache und Format, Spaltennamen,
-  Operation und Filterwerte, Workflow-Name und Parameter-JSON sowie das Fehlen von `force`.
+  Operation und Filterwerte, Workflow-Name und Parameter-JSON, das Fehlen von `force` sowie
+  beim Mandatsvertrag Name, Gesprächsdatum, Pauschalen und das Verbraucher-Flag.
 
 ```bash
 python3 eval/tool_choice/run_eval.py --runs 1 --temperature 0
@@ -28,6 +30,20 @@ python3 eval/tool_choice/run_eval.py --model qwen3.6:latest
 ```
 
 Berichte landen unter `results/` als Markdown und JSON.
+
+## Ergebnis vom 16.10.2026, qwen3.8:27b-mlx, 8 Werkzeuge
+
+Nach dem Hinzufügen von `beratungsvertrag_docx` und drei neuen Fällen (b01, b02, x06).
+
+| Lauf | Tool richtig | falsches Tool | Tool fehlt | Tool unnötig | Parameter korrekt | Ø Antwortzeit |
+|---|---|---|---|---|---|---|
+| Temperatur 0, 1 Lauf je Fall | 24 von 25 | 0 | 1 | 0 | 13 von 14 | 5,9 s |
+
+Beide Vertragsfälle wählten das neue Tool mit korrekten Parametern (Name, Gesprächsdatum,
+Pauschalen, Verbraucher-Flag). Die StBVV-Gebührenfrage ohne Dateiwunsch blieb ohne Werkzeug.
+Der eine Ausfall ist derselbe wie am 14.10.: Beim Anschreiben an das Finanzamt (c01) schrieb
+das Modell den Text direkt in den Chat statt `create_document` zu rufen. Das neue Tool hat die
+Wahl der anderen nicht verschoben. Bericht: `results/2026-10-16_1622_qwen3.8_27b-mlx.md`.
 
 ## Ergebnis vom 14.10.2026, qwen3.8:27b-mlx, 7 Werkzeuge
 
@@ -62,7 +78,7 @@ Was dieser Prüflauf nicht abbildet:
 - Die Reihenfolge und Menge an Kontext, die Open WebUI tatsächlich einfügt (Systemprompt,
   RAG-Auszüge mit mehreren Quellen, Chatverlauf). Lange Verläufe mit vielen Werkzeugaufrufen
   sind die bekannte Schwäche kleiner Modelle und sollten gesondert geprüft werden.
-- Parameter werden nur bei 12 Fällen und nur auf die genannten Felder geprüft. Der Inhalt
+- Parameter werden nur bei 14 Fällen und nur auf die genannten Felder geprüft. Der Inhalt
   erzeugter Dokumente wird nicht bewertet, nur dass Pflichtbegriffe darin vorkommen.
 - Tool-Ergebnisse sind vorgefertigt. Ob das Modell mit echten, längeren Ergebnissen weiter
   richtig entscheidet, zeigt nur der Chat.
