@@ -327,5 +327,58 @@
     "attachment": "bescheid.pdf",
     "attachment_text": "Bescheid über Umsatzsteuer 2025 für die Musterfirma Beispiel GmbH. Festgesetzt: 4.321,00 Euro. Fällig am 15.11.2026.",
     "prompt": "Welcher Betrag wird in dem Bescheid festgesetzt und wann ist er fällig?"
+  },
+  {
+    "id": "b01",
+    "expected": "beratungsvertrag_docx",
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Erstelle den Mandatsvertrag für die Beispiel Handel GmbH, Musterstraße 1, 12345 Musterstadt, Gespräch am 02.10.2026, Finanzbuchführung 450 Euro bei 120 Buchungen je Monat, Jahresabschluss 1.800 Euro ab Geschäftsjahr 2026, keine Anzahlung, Unternehmer.",
+    "expected_args": {
+      "mandant_name": {
+        "contains": "beispiel handel"
+      },
+      "gespraechsdatum": {
+        "regex": "^(02\\.10\\.2026|2026-10-02)$"
+      },
+      "pauschale_buchfuehrung_monat": {
+        "regex": "450"
+      },
+      "erstes_geschaeftsjahr": {
+        "in": [
+          "2026"
+        ]
+      }
+    }
+  },
+  {
+    "id": "b02",
+    "expected": "beratungsvertrag_docx",
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Mach mir bitte den Beratungsvertrag als Word-Datei für Erika Musterfrau, Privatperson, Beispielweg 2, 98765 Beispielhausen, wir haben am 05.10.2026 gesprochen. Nur die Steuererklärungspauschale mit 300 Euro, sonst nichts.",
+    "expected_args": {
+      "mandant_name": {
+        "contains": "musterfrau"
+      },
+      "verbraucher": {
+        "in": [
+          "true",
+          "1",
+          "yes",
+          "ja"
+        ]
+      },
+      "pauschale_steuererklaerung": {
+        "regex": "300"
+      }
+    }
+  },
+  {
+    "id": "x06",
+    "expected": null,
+    "attachment": null,
+    "attachment_text": null,
+    "prompt": "Wie hoch ist die Mittelgebühr nach StBVV für eine Einkommensteuererklärung bei 42.000 Euro Summe der positiven Einkünfte? Nur die Zahl erklären, keine Datei."
   }
 ]

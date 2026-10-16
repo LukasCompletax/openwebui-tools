@@ -16,6 +16,7 @@ Zerlegen, Rendern und Speichern laufen deterministisch im Werkzeug.
 | `read_table/` | Angehängte XLSX/CSV beschreiben und deterministisch auswerten: Summe, Anzahl, Durchschnitt, Min, Max, gruppiert und gefiltert | Installiert, Probelauf mit qwen3.8:27b-mlx erfolgreich |
 | `n8n_trigger/` | Freigegebene n8n-Workflows per Webhook auslösen, Ergebnis zurückgeben | Installiert, Probelauf mit qwen3.8:27b-mlx und n8n erfolgreich |
 | `ocr_scan/` | Gescannte PDF oder Bild per OCR durchsuchbar machen, Text zurückgeben | Installiert, Container läuft mit OCR-Image, Probelauf erfolgreich |
+| `beratungsvertrag_docx/` | Mandatsvertrag aus der Word-Vorlage der Kanzlei befüllen: Stammdaten, Pauschalen, Anzahlung, Verbraucher-Baustein, erste Honoraranpassung | Gebaut und gegen die Vorlage getestet, Import in Open WebUI steht aus |
 
 ## n8n_trigger
 
@@ -194,7 +195,7 @@ legt eine Kopie in `~/Downloads`, weil der Dateidialog dort am einfachsten hinfi
 
 Ein erneuter Import mit derselben ID überschreibt den gespeicherten Code.
 Die Tool-IDs: `pdf_translate` → `dokument_ubersetzen_pdf_docx_pdf_docx` (historisch,
-über den Editor angelegt), `create_document` → `datei_erzeugen`.
+über den Editor angelegt), `create_document` → `datei_erzeugen`, `beratungsvertrag_docx` → `beratungsvertrag_docx`.
 
 ## create_document
 
@@ -382,3 +383,82 @@ docker run --rm -v "$PWD:/w:ro" -w /w --entrypoint python open-webui-ocr:local o
 - OCR-Qualität hängt an Scanauflösung und Schrift. Handschrift wird nicht erkannt.
 - Die OCR-PDF liegt wie jeder Upload in Open WebUI. Produktive Dokumente gehören nach SharePoint.
 - Zeitbedarf grob: wenige Sekunden je Seite auf dem Mac Studio.
+
+## beratungsvertrag_docx
+
+### Was es tut
+
+Befüllt die Word-Vorlage des Mandatsvertrags (Angebot über steuerliche Beratungsleistungen
+mit Vergütungsvereinbarung) und legt die fertige DOCX als Download im Chat ab. Das Modell
+liefert nur Werte, der Vertragstext kommt unverändert aus der Vorlage.
+
+Eine Funktion für das Modell, `beratungsvertrag_docx`, mit typisierten Parametern:
+Name, Anschrift, E-Mail, Kurzname, Jahr, Vertrags- und Gesprächsdatum, Verbraucher ja/nein,
+Anzahlung in Prozent, die vier Pauschalen (Finanzbuchführung mit Buchungen je Monat,
+Lohn-Einrichtung, Jahresabschluss mit erstem Geschäftsjahr, Steuererklärungen).
+
+Fest im Tool:
+
+- `Erste_Anpassung_Datum` wird berechnet: Vertragsdatum plus ein Jahr, dann der nächste
+  1. Januar (16.10.2026 → 01.01.2028, 01.01.2027 → 01.01.2028).
+- Beträge werden exakt als Decimal gelesen (`450`, `450,00`, `1.250,00`, `1250.5`) und als
+  `1.250,00` eingesetzt. Prozent ohne Nachkommastellen, wenn ganzzahlig.
+- Leere Pauschale = Listenzeile in Anlage 1 wird gestrichen. Die Registrierung bleibt immer.
+- Baustein `{{#Anzahlung}} … {{/Anzahlung}}` bleibt nur mit Anzahlung, Baustein
+  `{{#Verbraucher}} … {{/Verbraucher}}` nur bei Verbrauchern. Leere E-Mail = Zeile entfällt.
+- Fehlende oder ungültige Eingaben werden gesammelt zurückgemeldet, nichts wird geraten.
+- Bleibt ein Platzhalter übrig, bricht das Tool ab, statt eine lückenhafte Datei zu liefern.
+
+Der Befüll-Kern (`fill_docx`) ist generisch: Platzhalter `{{Name}}` auch über Run-Grenzen,
+Blöcke innerhalb eines Absatzes und über mehrere Absätze, Zeilen streichen, Tabellenzellen,
+Kopf- und Fußzeilen. Weitere Vorlagen (Anschreiben, Memos) können ihn mit eigener Feldliste nutzen.
+
+### Vorlage
+
+Die Vorlage liegt **nicht** im Repository (Kanzleidaten). Sie gehört ins Datenvolume von
+Open WebUI, Standardpfad `/app/backend/data/templates/beratungsvertrag/vorlage.docx`:
+
+```bash
+docker exec open-webui mkdir -p /app/backend/data/templates/beratungsvertrag
+docker cp vorlage.docx open-webui:/app/backend/data/templates/beratungsvertrag/vorlage.docx
+```
+
+Das Volume überlebt `recreate.sh`. Platzhalter der Vorlage: `Mandant_Name`, `Mandant_Anschrift`,
+`Mandant_Email`, `Mandant_Kurzname`, `Jahr`, `Vertragsdatum`, `Gespraechsdatum`,
+`Erste_Anpassung_Datum`, `Anzahlung_Prozent`, `Buchungen_Anzahl`, `Pauschale_Buchfuehrung_Monat`,
+`Lohn_Einrichtung`, `Pauschale_Jahresabschluss`, `Erstes_Geschaeftsjahr`,
+`Pauschale_Steuererklaerung`; Blöcke `Anzahlung` und `Verbraucher`. Jede optionale
+Pauschale steht in einem eigenen Absatz, damit sie gestrichen werden kann.
+
+### Installation
+
+Siehe „Installation eines Tools“, Tool-ID `beratungsvertrag_docx`. python-docx ist im Container
+vorhanden. Dazu gehört der Skill „Beratungsvertrag erstellen“ (Workspace → Skills, Import JSON),
+der Stammdaten abfragt, die StBVV-Kontrollrechnung im Code-Interpreter rechnet und am Ende
+dieses Tool aufruft.
+
+Beispielanfrage: „Erstelle den Mandatsvertrag für die Beispiel Handel GmbH, Musterstraße 1,
+12345 Musterstadt, Gespräch am 02.10.2026, Finanzbuchführung 450 Euro bei 120 Buchungen,
+Jahresabschluss 1.800 Euro ab 2026, keine Anzahlung.“
+
+### Einstellungen (Valves)
+
+| Valve | Standard | Bedeutung |
+|---|---|---|
+| `TEMPLATE_PATH` | `/app/backend/data/templates/beratungsvertrag/vorlage.docx` | Vorlage im Container |
+| `MAX_FIELD_CHARS` | 500 | Obergrenze je Textfeld |
+
+### Tests
+
+Die Tests bauen eine synthetische Vorlage mit denselben Platzhaltern, die echte wird nicht gebraucht:
+
+```bash
+docker run --rm -v "$PWD:/w:ro" -w /w --entrypoint python open-webui-ocr:local beratungsvertrag_docx/tests/test_core.py
+```
+
+### Datenschutz und Grenzen
+
+- Mandantendaten gehen als Parameter an das lokale Modell und in die Datei. Kein Cloud-Modell wählen.
+- Die DOCX liegt wie jeder Upload in Open WebUI. Der unterschriebene Vertrag gehört nach SharePoint.
+- Das Tool protokolliert nur Ereignisnamen und Fehlertypen, keine Namen oder Beträge.
+- Rechtliche Prüfung der Klauseln (Widerruf, § 627 BGB, Technology Fee) bleibt Sache der Kanzlei.
